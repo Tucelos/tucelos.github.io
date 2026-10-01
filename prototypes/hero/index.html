@@ -1,0 +1,1190 @@
+<!doctype html>
+<!--
+  PROTÓTIPO DESCARTÁVEL — não é código de produção.
+  Pergunta: qual direção visual para o topo da página? ("bonito e moderno")
+  Rodada 3: a barra e as setas ← → alternam H (topo do F + cartões do D), D (bento escuro), F (cinemático) e G (artigo técnico).
+  Arquivadas, só por URL: ?variant=A editorial claro · B escuro tecnológico · C bento claro · E sugestão (A + cartões do B).
+  Conteúdo real (Lattes/LinkedIn/GitHub); textos são rascunho.
+  Ainda não existe app: por isso é uma página avulsa (fica fora de src/ e não é publicada).
+-->
+<html lang="pt-BR" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PROTÓTIPO · Tuigg Barcelos · topo da página</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  .icon { width: 18px; height: 18px; flex: none; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .iconbtn { all: unset; cursor: pointer; width: 36px; height: 36px; display: inline-grid; place-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--fg); transition: border-color .2s; }
+  .iconbtn:hover, .iconbtn:focus-visible { border-color: var(--accent); }
+  .langbtn { font-size: 12.5px; letter-spacing: .08em; font-weight: 600; padding: 0 12px; height: 36px; display: inline-flex; align-items: center; border-radius: 999px; border: 1px solid var(--line); color: var(--fg); text-decoration: none; }
+  .langbtn:hover { border-color: var(--accent); }
+  .crop { overflow: hidden; }
+  .crop img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* ───────────── A · Editorial claro ───────────── */
+  .vA { --bg: #faf8f4; --fg: #1b1a22; --muted: #5c596a; --accent: #4f35d8; --accent-soft: rgba(79, 53, 216, .07); --line: #e6e1d7;
+        font-family: Inter, system-ui, sans-serif; background: var(--bg); color: var(--fg); min-height: 100vh; }
+  [data-theme="dark"] .vA { --bg: #121117; --fg: #efedf5; --muted: #a3a0b4; --accent: #a99bff; --accent-soft: rgba(169, 155, 255, .12); --line: #2a2833; }
+  .vA .nav { display: flex; justify-content: space-between; align-items: center; max-width: 1140px; margin: 0 auto; padding: 26px 32px; }
+  .vA .brand { font-family: 'Instrument Serif', serif; font-size: 24px; text-decoration: none; }
+  .vA .nav ul { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; font-size: 14px; color: var(--muted); }
+  .vA .nav ul a { text-decoration: none; } .vA .nav ul a:hover { color: var(--fg); }
+  .vA .tools { display: flex; gap: 8px; align-items: center; }
+  .vA .hero { max-width: 1140px; margin: 0 auto; padding: 64px 32px 72px; display: grid; grid-template-columns: 1.55fr 1fr; gap: 72px; align-items: center; }
+  .vA .news { display: inline-flex; align-items: center; gap: 10px; font-size: 13.5px; color: var(--fg); text-decoration: none; padding: 6px 14px 6px 6px; border-radius: 999px; background: var(--accent-soft); border: 1px solid transparent; }
+  .vA .news:hover { border-color: var(--accent); }
+  .vA .news b { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; background: var(--accent); color: var(--bg); padding: 4px 9px; border-radius: 999px; }
+  .vA h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(46px, 6.4vw, 88px); line-height: 1.0; letter-spacing: -.012em; margin: 26px 0 26px; }
+  .vA h1 em { color: var(--accent); }
+  .vA .lede { font-size: 19px; line-height: 1.62; color: var(--muted); max-width: 54ch; margin: 0; }
+  .vA .lede strong { color: var(--fg); font-weight: 500; }
+  .vA .links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 34px; }
+  .vA .links a { display: inline-flex; align-items: center; gap: 8px; padding: 10px 15px; border: 1px solid var(--line); border-radius: 999px; text-decoration: none; font-size: 14px; transition: border-color .2s, background .2s; }
+  .vA .links a:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .vA .links a.primary { background: var(--fg); color: var(--bg); border-color: var(--fg); }
+  .vA .meta { margin-top: 22px; font-size: 13.5px; color: var(--muted); display: flex; gap: 18px; flex-wrap: wrap; }
+  .vA .meta span { display: inline-flex; gap: 6px; align-items: center; }
+  .vA .photo { position: relative; isolation: isolate; }
+  .vA .photo::before { content: ""; position: absolute; inset: -12% -14%; z-index: -1; background: radial-gradient(closest-side, rgba(79, 53, 216, .22), transparent 75%); }
+  .vA .photo .crop { aspect-ratio: 4 / 5; border-radius: 30px; box-shadow: 0 40px 70px -40px rgba(40, 25, 130, .55); }
+  .vA .photo .crop img { object-position: 82% 50%; }
+  .vA .photo figcaption { margin-top: 14px; font-size: 12.5px; color: var(--muted); text-align: right; }
+  .vA .peek { max-width: 1140px; margin: 0 auto; padding: 52px 32px 140px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 240px 1fr; gap: 56px; }
+  .vA .label { font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); margin: 8px 0 0; }
+  .vA .peek h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 40px; line-height: 1.08; margin: 0 0 14px; }
+  .vA .peek p { color: var(--muted); line-height: 1.65; margin: 0; max-width: 62ch; }
+  .vA .lines { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 34px; }
+  .vA .lines div { border-top: 2px solid var(--accent); padding-top: 16px; }
+  .vA .lines strong { display: block; font-weight: 600; margin-bottom: 6px; }
+  .vA .lines span { color: var(--muted); font-size: 14.5px; line-height: 1.55; }
+  @media (prefers-reduced-motion: no-preference) {
+    .vA .reveal { opacity: 0; transform: translateY(14px); animation: vA-up .7s cubic-bezier(.2, .7, .2, 1) forwards; }
+    .vA .reveal.d1 { animation-delay: .08s; } .vA .reveal.d2 { animation-delay: .16s; } .vA .reveal.d3 { animation-delay: .24s; } .vA .reveal.d4 { animation-delay: .32s; }
+  }
+  @keyframes vA-up { to { opacity: 1; transform: none; } }
+  @media (max-width: 900px) {
+    .vA .nav ul { display: none; }
+    .vA .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 32px; }
+    .vA .photo { max-width: 340px; order: -1; }
+    .vA .peek { grid-template-columns: 1fr; gap: 16px; }
+    .vA .lines { grid-template-columns: 1fr; }
+  }
+
+  /* ───────────── B · Escuro tecnológico ───────────── */
+  .vB { --bg: #070716; --fg: #e9e9f7; --muted: #9a9cc2; --accent: #a594ff; --accent-pill: rgba(165, 148, 255, .11); --card: rgba(255, 255, 255, .035); --line: rgba(255, 255, 255, .09);
+        font-family: Geist, Inter, system-ui, sans-serif; background: var(--bg); color: var(--fg); min-height: 100vh; position: relative; }
+  [data-theme="light"] .vB { --bg: #f5f5fb; --fg: #14142b; --muted: #585a7a; --accent: #5a43df; --accent-pill: rgba(90, 67, 223, .09); --card: rgba(20, 20, 60, .035); --line: rgba(20, 20, 60, .1); }
+  .vB .glow { pointer-events: none; position: fixed; inset: 0; z-index: 0; background: radial-gradient(640px circle at var(--mx, 28%) var(--my, 22%), rgba(99, 102, 241, .17), transparent 42%); }
+  [data-theme="light"] .vB .glow { background: radial-gradient(640px circle at var(--mx, 28%) var(--my, 22%), rgba(99, 102, 241, .10), transparent 42%); }
+  .vB .wrap { position: relative; z-index: 1; max-width: 1200px; margin: 0 auto; padding: 0 44px; display: grid; grid-template-columns: 1fr 1.18fr; gap: 80px; }
+  .vB aside { position: sticky; top: 0; height: 100vh; padding: 84px 0 52px; display: flex; flex-direction: column; justify-content: space-between; }
+  .vB .avatar { position: relative; width: 116px; height: 116px; margin-bottom: 30px; isolation: isolate; }
+  .vB .avatar::before { content: ""; position: absolute; inset: -20px; z-index: -1; border-radius: 50%; background: conic-gradient(from 200deg, #3b6bff, #9b8cff, #d27cff, #3b6bff); filter: blur(30px); opacity: .6; }
+  .vB .avatar .crop { width: 100%; height: 100%; border-radius: 50%; border: 1px solid rgba(255, 255, 255, .2); }
+  .vB .avatar .crop img { object-position: 47% 34%; transform: scale(1.75); transform-origin: 47% 36%; }
+  .vB h1 { font-size: 48px; font-weight: 700; letter-spacing: -.035em; line-height: 1.02; margin: 0; }
+  .vB .role { font-size: 19px; font-weight: 500; margin: 12px 0 0; }
+  .vB .status { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; color: var(--muted); margin-top: 18px; display: inline-flex; gap: 9px; align-items: center; border: 1px solid var(--line); padding: 7px 12px; border-radius: 999px; background: var(--card); }
+  .vB .status i { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 3px rgba(52, 211, 153, .22); }
+  .vB .blurb { color: var(--muted); max-width: 40ch; line-height: 1.65; margin: 20px 0 0; }
+  .vB nav ol { list-style: none; padding: 0; margin: 46px 0 0; display: grid; gap: 15px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; }
+  .vB nav a { color: var(--muted); text-decoration: none; display: inline-flex; align-items: center; gap: 16px; transition: color .2s; }
+  .vB nav a::before { content: ""; width: 32px; height: 1px; background: currentColor; transition: width .25s; }
+  .vB nav a.active, .vB nav a:hover { color: var(--fg); }
+  .vB nav a.active::before, .vB nav a:hover::before { width: 64px; }
+  .vB .foot { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .vB .social { display: flex; gap: 16px; align-items: center; }
+  .vB .social a { color: var(--muted); transition: color .2s; } .vB .social a:hover { color: var(--fg); }
+  .vB .social .icon { width: 21px; height: 21px; }
+  .vB .tools { display: flex; gap: 8px; }
+  .vB main { padding: 84px 0 160px; }
+  .vB section { margin-bottom: 84px; scroll-margin-top: 60px; }
+  .vB .sec-label { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--accent); margin: 0 0 22px; }
+  .vB p { color: var(--muted); line-height: 1.72; margin: 0 0 16px; }
+  .vB p strong { color: var(--fg); font-weight: 500; }
+  .vB .lines { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+  .vB .lines span { border: 1px solid var(--line); background: var(--card); padding: 8px 13px; border-radius: 10px; font-size: 14px; }
+  .vB .list { display: grid; gap: 4px; }
+  .vB .card { display: grid; grid-template-columns: 112px 1fr; gap: 22px; padding: 20px; margin: 0 -20px; border-radius: 14px; border: 1px solid transparent; transition: background .2s, border-color .2s, opacity .2s; text-decoration: none; }
+  .vB .list:hover .card { opacity: .5; }
+  .vB .list .card:hover { opacity: 1; background: var(--card); border-color: var(--line); }
+  .vB .when { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; color: var(--muted); padding-top: 4px; letter-spacing: .04em; }
+  .vB .card h3 { margin: 0; font-size: 16px; font-weight: 600; line-height: 1.4; transition: color .2s; }
+  .vB .card:hover h3 { color: var(--accent); }
+  .vB .authors { font-size: 13.5px; color: var(--muted); margin-top: 6px; }
+  .vB .authors b { color: var(--fg); font-weight: 600; }
+  .vB .venue { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+  .vB .badge { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11px; color: var(--bg); background: var(--accent); padding: 2px 7px; border-radius: 6px; margin-right: 8px; }
+  .vB .desc { font-size: 14px; color: var(--muted); line-height: 1.6; margin-top: 6px; }
+  .vB .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+  .vB .pills span { font-size: 12px; color: var(--accent); background: var(--accent-pill); padding: 4px 10px; border-radius: 999px; font-weight: 500; }
+  .vB .more { display: inline-flex; gap: 8px; align-items: center; margin-top: 18px; font-weight: 600; font-size: 14.5px; text-decoration: none; }
+  .vB .more:hover { color: var(--accent); }
+  @media (max-width: 980px) {
+    .vB .wrap { grid-template-columns: 1fr; gap: 0; padding: 0 24px; }
+    .vB aside { position: relative; height: auto; padding: 56px 0 0; }
+    .vB nav { display: none; }
+    .vB .foot { margin-top: 28px; }
+    .vB main { padding-top: 56px; }
+  }
+
+  /* ───────────── C · Bento ───────────── */
+  .vC { --bg: #eceef3; --fg: #121320; --muted: #5d6075; --card: rgba(255, 255, 255, .8); --line: rgba(18, 19, 32, .06); --accent: #5b3fd9; --accent-soft: #efeaff;
+        font-family: 'Plus Jakarta Sans', system-ui, sans-serif; background: var(--bg); color: var(--fg); min-height: 100vh; }
+  [data-theme="dark"] .vC { --bg: #070716; --fg: #ecebfa; --muted: #9c9ec4; --card: rgba(255, 255, 255, .04); --line: rgba(255, 255, 255, .085); --accent: #a594ff; --accent-soft: rgba(165, 148, 255, .12);
+        background: radial-gradient(1100px 560px at 12% -8%, rgba(79, 70, 229, .26), transparent 62%), radial-gradient(900px 520px at 100% 4%, rgba(124, 92, 255, .16), transparent 60%), var(--bg); }
+  .vC .glow { display: none; }
+  [data-theme="dark"] .vC .glow { display: block; pointer-events: none; position: fixed; inset: 0; z-index: 0; background: radial-gradient(560px circle at var(--mx, 30%) var(--my, 20%), rgba(99, 102, 241, .14), transparent 42%); }
+  .vC > .top, .vC > .grid { position: relative; z-index: 1; }
+  [data-theme="dark"] .vC .tile { box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05); }
+  [data-theme="dark"] .vC .tile:hover { border-color: rgba(165, 148, 255, .32); box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06), 0 24px 60px -34px rgba(99, 102, 241, .75); }
+  [data-theme="dark"] .vC .t-hero .crop { box-shadow: 0 0 0 1px rgba(255, 255, 255, .12), 0 22px 60px -18px rgba(124, 92, 255, .65); }
+  [data-theme="dark"] .vC .t-now { background: linear-gradient(135deg, #2b1f9e 0%, #4f46e5 55%, #8b6cff 100%); }
+  [data-theme="dark"] .vC .t-contact { background: linear-gradient(135deg, #15123a, #241d6b); color: #fff; border: 1px solid rgba(165, 148, 255, .25); }
+  [data-theme="dark"] .vC .t-contact .k, [data-theme="dark"] .vC .t-contact small, [data-theme="dark"] .vC .t-contact .mail2 { color: rgba(255, 255, 255, .7); }
+  [data-theme="dark"] .vC .t-contact .mail2:hover { color: #fff; }
+  [data-theme="dark"] .vC .t-links a:hover, [data-theme="dark"] .vC .pub em { color: #0b0b1f; }
+  .vC .top { max-width: 1260px; margin: 0 auto; padding: 22px 28px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .vC .brand { font-weight: 800; letter-spacing: -.02em; font-size: 17px; text-decoration: none; display: inline-flex; gap: 10px; align-items: center; }
+  .vC .brand i { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, #3b2bb5, #7c5cff); display: inline-grid; place-items: center; color: #fff; font-style: normal; font-size: 12px; font-weight: 800; }
+  .vC .pillnav { display: flex; gap: 2px; background: var(--card); border: 1px solid var(--line); padding: 5px; border-radius: 999px; backdrop-filter: blur(10px); }
+  .vC .pillnav a { padding: 8px 15px; border-radius: 999px; font-size: 13.5px; color: var(--muted); text-decoration: none; font-weight: 600; }
+  .vC .pillnav a:hover { color: var(--fg); }
+  .vC .pillnav a.on { background: var(--fg); color: var(--bg); }
+  .vC .tools { display: flex; gap: 8px; }
+  .vC .grid { max-width: 1260px; margin: 0 auto; padding: 6px 28px 140px; display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: minmax(88px, auto); gap: 16px; }
+  .vC .tile { background: var(--card); border: 1px solid var(--line); border-radius: 26px; padding: 24px; position: relative; overflow: hidden; backdrop-filter: blur(12px); transition: transform .25s, box-shadow .25s; text-decoration: none; }
+  @media (prefers-reduced-motion: no-preference) { .vC .tile:hover { transform: translateY(-3px); box-shadow: 0 22px 44px -26px rgba(40, 30, 120, .4); } }
+  .vC .k { font-size: 12px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin: 0 0 14px; }
+  .vC .t-hero { grid-column: span 7; grid-row: span 4; display: grid; grid-template-columns: 210px 1fr; gap: 30px; align-items: center; padding: 26px; }
+  .vC .t-hero .crop { width: 210px; height: 270px; border-radius: 20px; }
+  .vC .t-hero .crop img { object-position: 80% 50%; }
+  .vC .t-hero h1 { font-size: 46px; line-height: 1.0; letter-spacing: -.04em; margin: 0 0 14px; font-weight: 800; }
+  .vC .t-hero .hl { font-size: 18px; font-weight: 700; color: var(--accent); margin: 0; line-height: 1.35; }
+  .vC .t-hero p { color: var(--muted); line-height: 1.6; font-size: 15px; margin: 14px 0 0; }
+  .vC .t-hero .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 18px; }
+  .vC .chips span { font-size: 12.5px; font-weight: 600; padding: 6px 11px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); }
+  .vC .t-now { grid-column: span 5; grid-row: span 4; background: linear-gradient(135deg, #24187a 0%, #4338ca 55%, #7c5cff 100%); color: #fff; border: none; display: flex; flex-direction: column; }
+  .vC .now-list { list-style: none; padding: 0; margin: auto 0 0; display: grid; }
+  .vC .now-list li { padding: 13px 0; border-top: 1px solid rgba(255, 255, 255, .18); }
+  .vC .now-list li:last-child { padding-bottom: 0; }
+  .vC .now-list b { display: block; font-size: 14.5px; font-weight: 700; }
+  .vC .now-list span { display: block; font-size: 12.5px; color: rgba(255, 255, 255, .72); margin-top: 3px; line-height: 1.4; }
+  .vC .now-list a { text-decoration: none; display: block; }
+  .vC .now-list a:hover b { text-decoration: underline; }
+  .vC .t-now .k { color: rgba(255, 255, 255, .7); display: flex; align-items: center; gap: 8px; }
+  .vC .t-now .k i { width: 7px; height: 7px; border-radius: 50%; background: #34d399; box-shadow: 0 0 0 3px rgba(52, 211, 153, .3); }
+  .vC .t-now > p:not(.k) { margin: 0; font-size: 22px; font-weight: 600; line-height: 1.35; letter-spacing: -.015em; max-width: 26ch; }
+  .vC .t-now small { display: block; margin-top: 10px; color: rgba(255, 255, 255, .72); font-size: 13px; font-weight: 500; }
+  .vC .t-stats { grid-column: span 5; grid-row: span 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-content: center; }
+  .vC .t-stats b { display: block; font-size: 38px; font-weight: 800; letter-spacing: -.04em; line-height: 1; }
+  .vC .t-stats span { display: block; font-size: 13px; color: var(--muted); margin-top: 8px; line-height: 1.35; }
+  .vC .t-links { grid-column: span 3; grid-row: span 2; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 18px; }
+  .vC .t-links a { display: grid; place-items: center; gap: 4px; border-radius: 16px; background: var(--accent-soft); color: var(--accent); text-decoration: none; font-size: 11px; font-weight: 700; padding: 8px 4px; transition: background .2s, color .2s; }
+  .vC .t-links a:hover { background: var(--accent); color: #fff; }
+  .vC .t-links .icon { width: 20px; height: 20px; }
+  .vC .t-lines { grid-column: span 5; grid-row: span 2; }
+  .vC .chips span.soft { background: transparent; border: 1px solid var(--line); color: var(--muted); }
+  .vC .t-lines .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .vC .t-trail { grid-column: span 12; grid-row: span 2; }
+  .vC .trail { display: grid; grid-template-columns: repeat(6, 1fr); position: relative; margin-top: 6px; }
+  .vC .trail::before { content: ""; position: absolute; left: 6px; right: 6px; top: 6px; height: 2px; background: linear-gradient(90deg, var(--line), var(--accent)); }
+  .vC .trail div { position: relative; padding-top: 22px; font-size: 12.5px; color: var(--muted); line-height: 1.35; padding-right: 6px; }
+  .vC .trail div::before { content: ""; position: absolute; top: 0; left: 0; width: 14px; height: 14px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+  .vC .trail div:last-child::before { background: var(--accent); }
+  .vC .trail b { display: block; color: var(--fg); font-size: 13px; }
+  .vC .t-pubs { grid-column: span 5; grid-row: span 3; display: flex; flex-direction: column; }
+  .vC .pub { display: block; text-decoration: none; padding: 12px 0; border-top: 1px solid var(--line); }
+  .vC .pub:first-of-type { border-top: 0; padding-top: 0; }
+  .vC .pub b { display: block; font-size: 14.5px; line-height: 1.4; }
+  .vC .pub:hover b { color: var(--accent); }
+  .vC .pub span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 5px; }
+  .vC .pub em { font-style: normal; font-weight: 700; font-size: 11px; color: #fff; background: var(--accent); padding: 2px 7px; border-radius: 6px; margin-right: 6px; }
+  .vC .t-pubs .all { margin-top: auto; font-size: 13.5px; font-weight: 700; text-decoration: none; color: var(--accent); }
+  .vC .t-projects { grid-column: span 7; grid-row: span 3; }
+  .vC .projs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .vC .proj { display: block; text-decoration: none; padding: 14px 16px; border-radius: 18px; background: var(--accent-soft); transition: background .2s; }
+  .vC .proj:hover { background: color-mix(in srgb, var(--accent) 18%, transparent); }
+  .vC .proj b { display: flex; justify-content: space-between; align-items: center; font-size: 15px; }
+  .vC .proj span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 4px; line-height: 1.4; }
+  .vC .t-groups { grid-column: span 4; grid-row: span 2; }
+  .vC .groups { display: grid; grid-template-columns: 1fr; gap: 12px; }
+  .vC .groups em { font-style: normal; font-size: 10.5px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); padding: 2px 7px; border-radius: 6px; margin-left: 6px; vertical-align: 2px; }
+  .vC .groups a:hover b { color: var(--accent); }
+  .vC .groups a { text-decoration: none; display: block; }
+  .vC .groups b { display: block; font-size: 15px; }
+  .vC .groups span { display: block; font-size: 12.5px; color: var(--muted); margin-top: 4px; }
+  .vC .t-contact { grid-column: span 12; grid-row: span 2; background: var(--fg); color: var(--bg); border: none; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  .vC .t-contact .k { color: color-mix(in srgb, var(--bg) 65%, transparent); }
+  .vC .t-contact .mail { font-size: clamp(20px, 2.6vw, 34px); font-weight: 800; letter-spacing: -.03em; text-decoration: none; display: inline-flex; align-items: center; gap: 10px; word-break: break-all; }
+  .vC .t-contact .mail2 { display: block; margin-top: 8px; font-size: 14px; text-decoration: none; color: color-mix(in srgb, var(--bg) 70%, transparent); }
+  .vC .t-contact .mail2:hover { color: inherit; }
+  .vC .t-contact small { font-size: 13px; display: inline-flex; gap: 6px; align-items: center; color: color-mix(in srgb, var(--bg) 65%, transparent); }
+  @media (max-width: 1080px) {
+    .vC .grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: auto; }
+    .vC .tile { grid-column: span 6 !important; grid-row: auto !important; }
+    .vC .pillnav { display: none; }
+  }
+  @media (max-width: 640px) { .vC .t-hero { grid-template-columns: 1fr; } .vC .projs, .vC .groups, .vC .trail { grid-template-columns: 1fr; } .vC .trail::before { display: none; } }
+
+  /* ───────────── E · Sugestão: editorial (A) + cartões e escuro (B) ───────────── */
+  .vE { --card: rgba(27, 26, 34, .035); --accent-pill: rgba(79, 53, 216, .08); position: relative; }
+  [data-theme="dark"] .vE { --bg: #070716; --fg: #e9e9f7; --muted: #9a9cc2; --accent: #a594ff; --accent-soft: rgba(165, 148, 255, .12); --accent-pill: rgba(165, 148, 255, .11); --card: rgba(255, 255, 255, .035); --line: rgba(255, 255, 255, .09); }
+  .vE .glow { display: none; }
+  [data-theme="dark"] .vE .glow { display: block; pointer-events: none; position: fixed; inset: 0; z-index: 0; background: radial-gradient(640px circle at var(--mx, 28%) var(--my, 22%), rgba(99, 102, 241, .15), transparent 42%); }
+  .vE > :not(.glow) { position: relative; z-index: 1; }
+  .vE .peek { padding-bottom: 56px; }
+  .vE .peek:last-of-type { padding-bottom: 150px; }
+  .vE .list { display: grid; gap: 4px; margin-top: 22px; }
+  .vE .card { display: grid; grid-template-columns: 104px 1fr; gap: 22px; padding: 20px; margin: 0 -20px; border-radius: 16px; border: 1px solid transparent; text-decoration: none; transition: background .2s, border-color .2s, opacity .2s; }
+  .vE .list:hover .card { opacity: .55; }
+  .vE .list .card:hover { opacity: 1; background: var(--card); border-color: var(--line); }
+  .vE .when { font-size: 13px; color: var(--muted); padding-top: 3px; font-variant-numeric: tabular-nums; }
+  .vE .card h3 { margin: 0; font-size: 17px; font-weight: 600; line-height: 1.4; transition: color .2s; }
+  .vE .card:hover h3 { color: var(--accent); }
+  .vE .authors { font-size: 14px; color: var(--muted); margin-top: 6px; }
+  .vE .authors b { color: var(--fg); font-weight: 600; }
+  .vE .venue { font-size: 14px; color: var(--muted); margin-top: 4px; }
+  .vE .badge { font-size: 11px; font-weight: 600; color: var(--bg); background: var(--accent); padding: 2px 8px; border-radius: 6px; margin-right: 8px; }
+  .vE .peek .desc { font-size: 14.5px; margin: 6px 0 0; }
+  .vE .peek .desc b { color: var(--fg); font-weight: 600; }
+  .vE .pills { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
+  .vE .pills span { font-size: 12px; color: var(--accent); background: var(--accent-pill); padding: 4px 10px; border-radius: 999px; font-weight: 500; }
+  .vE .more { display: inline-flex; gap: 8px; align-items: center; margin-top: 16px; font-weight: 600; font-size: 14.5px; text-decoration: none; }
+  .vE .more:hover { color: var(--accent); }
+  @media (max-width: 900px) { .vE .card { grid-template-columns: 1fr; gap: 6px; } }
+
+  /* ───────────── F · Cinemático ───────────── */
+  .vF { --bg: #06060f; --fg: #f2f1fb; --muted: #a3a3c2; --line: rgba(255, 255, 255, .1); --accent: #a594ff; --card: rgba(255, 255, 255, .04);
+        font-family: Geist, Inter, system-ui, sans-serif; background: var(--bg); color: var(--fg); min-height: 100vh; }
+  [data-theme="light"] .vF { --bg: #f7f6fb; --fg: #13122a; --muted: #5b5a78; --line: rgba(19, 18, 42, .1); --accent: #5a43df; --card: rgba(19, 18, 42, .03); }
+  .vF .tools, .vG .tools { display: flex; gap: 8px; align-items: center; }
+  .vF .f-nav { position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 40px; color: #fff; background: rgba(6, 6, 15, .42); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(255, 255, 255, .08); }
+  .vF .f-brand { font-weight: 700; letter-spacing: -.02em; text-decoration: none; }
+  .vF .f-nav nav { display: flex; gap: 26px; font-size: 14px; }
+  .vF .f-nav nav a { text-decoration: none; opacity: .78; } .vF .f-nav nav a:hover { opacity: 1; }
+  .vF .f-nav .langbtn, .vF .f-nav .iconbtn { color: #fff; border-color: rgba(255, 255, 255, .28); }
+  .vF .f-hero { position: relative; min-height: 100vh; display: flex; align-items: flex-end; overflow: hidden; color: #fff; background: #06060f; }
+  /* a foto começa logo abaixo da barra do topo (64px), para a cabeça não ficar cortada nem coberta pela barra */
+  .vF .f-bg { position: absolute; inset: 64px 0 0 0; width: 100%; height: calc(100% - 64px); object-fit: cover; object-position: 72% 0%; }
+  .vF .f-shade { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(6, 6, 15, .96) 0%, rgba(6, 6, 15, .84) 30%, rgba(6, 6, 15, .28) 58%, rgba(6, 6, 15, .08) 100%), linear-gradient(0deg, var(--bg) 0%, transparent 26%); }
+  .vF .f-copy { position: relative; z-index: 1; padding: 0 40px 92px; max-width: 780px; }
+  .vF .f-kicker { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; letter-spacing: .18em; text-transform: uppercase; color: #c9c0ff; margin: 0 0 18px; }
+  .vF .f-hero h1 { font-size: clamp(64px, 9vw, 136px); line-height: .9; letter-spacing: -.055em; margin: 0; font-weight: 700; }
+  .vF .f-lede { font-size: 21px; line-height: 1.5; max-width: 32ch; margin: 26px 0 0; color: rgba(255, 255, 255, .9); }
+  .vF .f-aff { font-size: 14px; color: rgba(255, 255, 255, .66); margin: 14px 0 0; }
+  .vF .f-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+  .vF .f-links a { display: inline-flex; align-items: center; gap: 8px; padding: 10px 15px; border-radius: 999px; font-size: 14px; text-decoration: none; color: #fff; background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .2); backdrop-filter: blur(10px); transition: background .2s; }
+  .vF .f-links a:hover { background: rgba(255, 255, 255, .18); }
+  .vF .f-links a.primary { background: #fff; color: #0b0b1f; border-color: #fff; }
+  .vF .f-scroll { position: absolute; right: 40px; bottom: 40px; z-index: 1; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 255, 255, .7); text-decoration: none; }
+  .vF .f-band { display: grid; grid-template-columns: 1.3fr 1fr 1fr; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .vF .f-col { padding: 40px; border-left: 1px solid var(--line); }
+  .vF .f-col:first-child { border-left: 0; }
+  .vF .f-k { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin: 0 0 16px; }
+  .vF .f-gap { margin-top: 44px; }
+  .vF .f-big { font-size: 26px; line-height: 1.3; letter-spacing: -.02em; margin: 0; font-weight: 600; }
+  .vF .f-mid { font-size: 20px; font-weight: 600; margin: 0; letter-spacing: -.01em; }
+  .vF .f-mid a, .vF .f-small a { text-decoration: none; } .vF .f-mid a:hover, .vF .f-small a:hover { color: var(--accent); }
+  .vF .f-small { font-size: 14px; color: var(--muted); line-height: 1.6; margin: 8px 0 0; }
+  .vF .f-small a { color: var(--fg); }
+  .vF .f-sec { max-width: 1160px; margin: 0 auto; padding: 96px 40px 0; }
+  .vF .f-lines { list-style: none; padding: 0; margin: 0; display: grid; }
+  .vF .f-lines li { font-size: clamp(30px, 4.4vw, 58px); font-weight: 700; letter-spacing: -.04em; line-height: 1.1; display: flex; gap: 22px; align-items: baseline; padding: 12px 0; border-bottom: 1px solid var(--line); }
+  .vF .f-lines span { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; color: var(--accent); letter-spacing: .1em; font-weight: 500; }
+  .vF .f-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .vF .f-chips span { padding: 8px 14px; border-radius: 999px; border: 1px solid var(--line); font-size: 14px; color: var(--muted); }
+  .vF .f-chips span.line { color: var(--fg); border-color: color-mix(in srgb, var(--accent) 55%, transparent); background: color-mix(in srgb, var(--accent) 12%, transparent); }
+  .vF .f-pubs a { display: grid; grid-template-columns: 90px 1fr 24px; gap: 24px; padding: 26px 0; border-bottom: 1px solid var(--line); text-decoration: none; align-items: start; }
+  .vF .f-pubs .y { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: var(--muted); padding-top: 4px; }
+  .vF .f-pubs b { display: block; font-size: 20px; line-height: 1.35; letter-spacing: -.01em; font-weight: 600; transition: color .2s; }
+  .vF .f-pubs a:hover b { color: var(--accent); }
+  .vF .f-pubs .au { font-size: 14px; color: var(--muted); margin-top: 8px; } .vF .f-pubs .au strong { color: var(--fg); }
+  .vF .f-pubs .ve { font-size: 13.5px; color: var(--muted); margin-top: 4px; }
+  .vF .f-pubs .ar { margin-top: 4px; transition: transform .2s; }
+  .vF .f-pubs a:hover .ar { transform: translate(3px, -3px); }
+  .vF .f-more { display: inline-block; margin-top: 22px; font-weight: 600; text-decoration: none; } .vF .f-more:hover { color: var(--accent); }
+  .vF .f-projs { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
+  .vF .f-proj { display: block; text-decoration: none; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); background: var(--card); transition: transform .25s, border-color .25s; }
+  .vF .f-proj:hover { border-color: color-mix(in srgb, var(--accent) 50%, transparent); }
+  @media (prefers-reduced-motion: no-preference) { .vF .f-proj:hover { transform: translateY(-4px); } }
+  .vF .f-proj .band { height: 112px; background: var(--g); position: relative; }
+  .vF .f-proj .band span { position: absolute; left: 22px; bottom: 16px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: rgba(255, 255, 255, .88); }
+  .vF .f-proj .body { padding: 22px; }
+  .vF .f-proj h3 { margin: 0; font-size: 19px; letter-spacing: -.01em; }
+  .vF .f-proj p { margin: 8px 0 0; font-size: 14.5px; color: var(--muted); line-height: 1.6; }
+  .vF .f-proj p b { color: var(--fg); font-weight: 600; }
+  .vF .f-proj .pills { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 14px; }
+  .vF .f-proj .pills span { font-size: 12px; padding: 4px 10px; border-radius: 999px; background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent); }
+  .vF .f-trail { list-style: none; padding: 0; margin: 0; }
+  .vF .f-trail li { display: grid; grid-template-columns: 160px 1fr auto; gap: 24px; padding: 18px 0; border-bottom: 1px solid var(--line); align-items: baseline; }
+  .vF .f-trail .yr { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; color: var(--muted); }
+  .vF .f-trail b { font-size: 17px; font-weight: 600; }
+  .vF .f-trail em { font-style: normal; color: var(--muted); font-size: 14px; }
+  .vF .f-cta { max-width: 1160px; margin: 0 auto; padding: 110px 40px 160px; }
+  .vF .f-mail { display: inline-block; font-size: clamp(24px, 3.8vw, 52px); font-weight: 700; letter-spacing: -.04em; text-decoration: none; background: linear-gradient(90deg, var(--fg), var(--accent)); -webkit-background-clip: text; background-clip: text; color: transparent; word-break: break-all; }
+  @media (max-width: 900px) {
+    .vF .f-nav { padding: 12px 20px; } .vF .f-nav nav { display: none; }
+    .vF .f-copy { padding: 0 22px 80px; }
+    .vF .f-band { grid-template-columns: 1fr; } .vF .f-col { border-left: 0; border-top: 1px solid var(--line); padding: 28px 22px; }
+    .vF .f-sec, .vF .f-cta { padding-left: 22px; padding-right: 22px; }
+    .vF .f-projs { grid-template-columns: 1fr; } .vF .f-pubs a { grid-template-columns: 1fr; gap: 8px; } .vF .f-trail li { grid-template-columns: 1fr; gap: 4px; }
+  }
+
+  /* ───────────── G · Artigo técnico ───────────── */
+  .vG { --bg: #0a1122; --sheet: #0d1630; --fg: #e7ecfb; --muted: #8f9bc0; --line: rgba(120, 150, 255, .17); --grid: rgba(120, 150, 255, .06); --accent: #8aa9ff;
+        font-family: Inter, system-ui, sans-serif; color: var(--fg); min-height: 100vh; padding: 40px 24px 120px;
+        background-color: var(--bg);
+        background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px), linear-gradient(rgba(120, 150, 255, .03) 1px, transparent 1px), linear-gradient(90deg, rgba(120, 150, 255, .03) 1px, transparent 1px);
+        background-size: 96px 96px, 96px 96px, 24px 24px, 24px 24px; }
+  [data-theme="light"] .vG { --bg: #f5f7fd; --sheet: #ffffff; --fg: #0f1733; --muted: #56618a; --line: rgba(40, 80, 200, .18); --grid: rgba(40, 80, 200, .07); --accent: #2a55d6; }
+  .vG .g-sheet { max-width: 1120px; margin: 0 auto; background: color-mix(in srgb, var(--sheet) 90%, transparent); border: 1px solid var(--line); }
+  .vG .g-mono { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: .06em; color: var(--muted); }
+  .vG .g-head { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 14px 28px; border-bottom: 1px solid var(--line); }
+  .vG .g-head nav { display: flex; gap: 22px; }
+  .vG .g-head nav a { text-decoration: none; } .vG .g-head nav a:hover { color: var(--fg); }
+  .vG .g-title { display: grid; grid-template-columns: 1.25fr 1fr; border-bottom: 1px solid var(--line); }
+  .vG .g-title > div { padding: 48px 40px; border-right: 1px solid var(--line); }
+  .vG .g-meta { margin: 0 0 26px; }
+  .vG h1 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(54px, 6.5vw, 88px); line-height: .95; margin: 0; letter-spacing: -.01em; }
+  .vG .g-sub { font-size: 20px; margin: 14px 0 0; color: var(--accent); font-weight: 500; }
+  .vG .g-aff { font-size: 13.5px; color: var(--muted); margin: 14px 0 0; line-height: 1.6; }
+  .vG .g-aff sup { color: var(--accent); }
+  .vG .g-abstract { margin-top: 28px; padding: 18px 20px; border: 1px solid var(--line); border-left: 3px solid var(--accent); font-size: 15px; line-height: 1.65; background: color-mix(in srgb, var(--accent) 5%, transparent); }
+  .vG .g-abstract b { font-weight: 600; }
+  .vG .g-kw { margin: 10px 0 0; font-size: 13.5px; color: var(--muted); }
+  .vG .g-links { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-top: 24px; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 13px; }
+  .vG .g-links a { text-decoration: none; color: var(--accent); }
+  .vG .g-links a::before { content: "["; color: var(--muted); } .vG .g-links a::after { content: "]"; color: var(--muted); }
+  .vG .g-links a:hover { text-decoration: underline; }
+  .vG .g-fig { margin: 0; padding: 40px 36px 28px; display: flex; flex-direction: column; justify-content: center; }
+  .vG .g-frame { position: relative; padding: 10px; border: 1px dashed var(--line); }
+  .vG .g-frame img { width: 100%; aspect-ratio: 4 / 3.3; object-fit: cover; object-position: 76% 45%; }
+  .vG .g-frame i { position: absolute; width: 14px; height: 14px; border: 0 solid var(--accent); }
+  .vG .g-frame .tl { top: -1px; left: -1px; border-width: 2px 0 0 2px; } .vG .g-frame .tr { top: -1px; right: -1px; border-width: 2px 2px 0 0; }
+  .vG .g-frame .bl { bottom: -1px; left: -1px; border-width: 0 0 2px 2px; } .vG .g-frame .br { bottom: -1px; right: -1px; border-width: 0 2px 2px 0; }
+  .vG figcaption { font-size: 13px; color: var(--muted); margin-top: 12px; } .vG figcaption b { color: var(--fg); font-weight: 600; }
+  .vG .g-sec { padding: 40px; border-bottom: 1px solid var(--line); scroll-margin-top: 20px; } .vG .g-sec:last-child { border-bottom: 0; }
+  .vG h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: 36px; margin: 0 0 24px; display: flex; gap: 14px; align-items: baseline; }
+  .vG h2 span { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 14px; color: var(--accent); letter-spacing: .06em; }
+  .vG .g-grid { display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid var(--line); }
+  .vG .g-grid > div { padding: 20px; border-left: 1px solid var(--line); } .vG .g-grid > div:first-child { border-left: 0; }
+  .vG .g-label { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 11.5px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px; }
+  .vG .g-grid p { margin: 0; font-size: 15px; line-height: 1.6; }
+  .vG .g-grid a { text-decoration: none; } .vG .g-grid a:hover { color: var(--accent); }
+  .vG .g-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .vG .g-tags span { font-size: 13px; padding: 4px 9px; border: 1px solid var(--line); color: var(--muted); }
+  .vG .g-tags span.line { color: var(--fg); border-color: color-mix(in srgb, var(--accent) 60%, transparent); background: color-mix(in srgb, var(--accent) 8%, transparent); }
+  .vG .g-refs { list-style: none; padding: 0; margin: 0; counter-reset: ref; }
+  .vG .g-refs li { counter-increment: ref; display: grid; grid-template-columns: 44px 1fr; gap: 12px; padding: 14px 0; border-top: 1px dashed var(--line); font-size: 15px; line-height: 1.6; }
+  .vG .g-refs li:first-child { border-top: 0; }
+  .vG .g-refs li::before { content: "[" counter(ref) "]"; font-family: 'Geist Mono', ui-monospace, monospace; color: var(--accent); font-size: 13px; padding-top: 3px; }
+  .vG .g-refs a { text-decoration: none; } .vG .g-refs a:hover { color: var(--accent); }
+  .vG .g-refs em { color: var(--muted); }
+  .vG .g-refs .lk { font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; margin-left: 8px; color: var(--accent); }
+  .vG table { width: 100%; border-collapse: collapse; font-size: 14.5px; }
+  .vG th { text-align: left; font-family: 'Geist Mono', ui-monospace, monospace; font-weight: 500; font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); padding: 0 14px 10px 0; border-bottom: 1px solid var(--line); }
+  .vG td { padding: 14px 14px 14px 0; border-bottom: 1px dashed var(--line); vertical-align: top; line-height: 1.55; }
+  .vG tr:last-child td { border-bottom: 0; }
+  .vG td:first-child { white-space: nowrap; font-weight: 600; }
+  .vG td a { color: var(--accent); text-decoration: none; font-family: 'Geist Mono', ui-monospace, monospace; font-size: 12.5px; }
+  .vG td small { display: block; color: var(--muted); font-size: 13px; margin-top: 4px; }
+  .vG .g-mail { font-family: 'Instrument Serif', serif; font-size: clamp(26px, 3.6vw, 44px); text-decoration: none; word-break: break-all; }
+  .vG .g-mail:hover { color: var(--accent); }
+  @media (max-width: 900px) {
+    .vG { padding: 16px 10px 100px; }
+    .vG .g-head nav { display: none; }
+    .vG .g-title { grid-template-columns: 1fr; } .vG .g-title > div { border-right: 0; border-bottom: 1px solid var(--line); padding: 32px 22px; }
+    .vG .g-grid { grid-template-columns: 1fr; } .vG .g-grid > div { border-left: 0; border-top: 1px solid var(--line); }
+    .vG .g-sec { padding: 28px 22px; } .vG td:first-child { white-space: normal; }
+  }
+
+  /* ───────────── H · Topo do F + cartões do D ───────────── */
+  .vH .h-top { --bg: #070716; min-height: auto; }
+  [data-theme="light"] .vH .h-top { --bg: #eceef3; }
+  .vH .h-body { min-height: auto; font-family: Geist, Inter, system-ui, sans-serif; }
+  .vH .glow { display: none !important; }
+  .vH .grid { padding-top: 0; }
+  .vH .tile { scroll-margin-top: 84px; }
+  .vH .t-now { grid-column: span 7; grid-row: span 3; }
+  .vH .t-lines { grid-column: span 5; grid-row: span 3; }
+  .vH .t-lines .chips span { font-size: 13.5px; padding: 8px 13px; }
+  .vH .t-about { grid-column: span 7; grid-row: span 2; }
+  .vH .t-about p { margin: 0; color: var(--muted); line-height: 1.65; font-size: 15px; }
+  .vH .t-about p + p { margin-top: 10px; }
+  .vH .t-about strong { color: var(--fg); font-weight: 600; }
+  .vH .t-groups { grid-column: span 5; grid-row: span 2; }
+  .vH .t-pubs { grid-column: span 5; grid-row: span 3; }
+  .vH .t-projects { grid-column: span 7; grid-row: span 3; }
+  .vH .t-trail { grid-column: span 12; grid-row: span 2; }
+  .vH .t-contact { grid-column: span 12; grid-row: span 2; }
+
+  /* ───────────── barra do protótipo (não faz parte do design) ───────────── */
+  .proto-bar { position: fixed; left: 50%; bottom: 20px; transform: translateX(-50%); z-index: 1000; display: flex; align-items: center; gap: 6px; background: #111; color: #fff; padding: 6px; border-radius: 999px; box-shadow: 0 12px 30px rgba(0, 0, 0, .35), inset 0 0 0 1px rgba(255, 255, 255, .14); font: 600 13px/1 system-ui, sans-serif; }
+  .proto-bar button { all: unset; cursor: pointer; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 50%; background: #2a2a2a; font-size: 16px; }
+  .proto-bar button:hover, .proto-bar button:focus-visible { background: #444; }
+  .proto-label { padding: 0 12px; min-width: 230px; text-align: center; }
+  .proto-label::before { content: "PROTÓTIPO · "; color: #f5c518; font-weight: 800; }
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-github" viewBox="0 0 16 16"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></symbol>
+  <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" d="M4.98 3.5C4.98 4.88 3.87 6 2.5 6S0 4.88 0 3.5 1.12 1 2.5 1s2.48 1.12 2.48 2.5zM.5 8h4v16h-4V8zm7.5 0h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-8.1c0-1.93-.03-4.42-2.7-4.42-2.7 0-3.1 2.1-3.1 4.28V24h-4V8z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><path fill="currentColor" d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></symbol>
+  <symbol id="i-scholar" viewBox="0 0 24 24"><path fill="currentColor" d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3 1 9l11 6 9-4.91V17h2V9L12 3z"/></symbol>
+  <symbol id="i-orcid" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" stroke-width="2"/><text x="12" y="16.2" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="11" fill="currentColor">iD</text></symbol>
+  <symbol id="i-lattes" viewBox="0 0 24 24"><path fill="currentColor" d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></symbol>
+  <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 3.5a8.5 8.5 0 0 1 0 17z" fill="currentColor"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></symbol>
+</svg>
+
+<!-- ═════════════════════ A · Editorial claro ═════════════════════ -->
+<div class="variant vA" id="var-A" hidden>
+  <header class="nav">
+    <a class="brand" href="#">Tuigg Barcelos</a>
+    <ul>
+      <li><a href="#a-pesquisa">Pesquisa</a></li>
+      <li><a href="#">Publicações</a></li>
+      <li><a href="#">Projetos</a></li>
+      <li><a href="#">Trajetória</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+    <div class="tools">
+      <a class="langbtn" href="#" lang="en" title="Protótipo: troca de idioma não implementada">EN</a>
+      <button class="iconbtn theme-toggle" aria-label="Alternar tema"><svg class="icon"><use href="#i-theme"/></svg></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <a class="news reveal" href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener"><b>Novo</b> Artigo no SBSeg 2026 sobre exfiltração de dados em agentes MCP <svg class="icon" style="width:14px;height:14px"><use href="#i-arrow"/></svg></a>
+      <h1 class="reveal d1">Tuigg Barcelos pesquisa a <em>segurança de agentes de&nbsp;IA</em>.</h1>
+      <p class="lede reveal d2">Investigo como agentes baseados em LLM que usam o <strong>Model Context Protocol (MCP)</strong> podem ser induzidos a vazar dados, e como impedir isso. Faço o Mestrado Profissional em Engenharia de Software na <strong>UNIPAMPA</strong> e pesquiso no <strong>AI Horizon Labs</strong>.</p>
+      <div class="links reveal d3">
+        <a class="primary" href="http://lattes.cnpq.br/9627192907130585" target="_blank" rel="noopener"><svg class="icon"><use href="#i-lattes"/></svg>Currículo Lattes</a>
+        <a href="https://orcid.org/0009-0000-3520-102X" target="_blank" rel="noopener"><svg class="icon"><use href="#i-orcid"/></svg>ORCID</a>
+        <a href="https://scholar.google.com/citations?user=BvIlfYMAAAAJ" target="_blank" rel="noopener"><svg class="icon"><use href="#i-scholar"/></svg>Google Scholar</a>
+        <a href="https://github.com/Tucelos" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/tuiggbarcelos/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-linkedin"/></svg>LinkedIn</a>
+        <a href="mailto:tuiggbarcelos.aluno@unipampa.edu.br"><svg class="icon"><use href="#i-mail"/></svg>E-mail</a>
+      </div>
+      <div class="meta reveal d4">
+        <span><svg class="icon" style="width:15px;height:15px"><use href="#i-pin"/></svg>Alegrete, RS</span>
+        <span>Bolsa CNPq SET-G na Messo IA</span>
+      </div>
+    </div>
+    <figure class="photo reveal d2" style="margin:0">
+      <div class="crop"><img src="../../src/assets/foto-original.jpg" alt="Foto de Tuigg Barcelos sorrindo enquanto solda um circuito numa bancada, com impressoras 3D ao fundo."></div>
+    </figure>
+  </section>
+
+  <section class="peek" id="a-pesquisa">
+    <p class="label">Pesquisa</p>
+    <div>
+      <h2>Três linhas, um foco atual.</h2>
+      <p>No mestrado, estudo ataques e estratégias de mitigação em arquiteturas de agentes de IA que usam MCP, com orientação de Silvio Ereno Quincozes e coorientação de Paulo Silas Severo de Souza.</p>
+      <div class="lines">
+        <div><strong>Cibersegurança Inteligente</strong><span>Detecção de intrusão e resposta automatizada com apoio de IA.</span></div>
+        <div><strong>Inteligência Artificial Aplicada</strong><span>Agentes baseados em LLM e os riscos de colocá-los em produção.</span></div>
+        <div><strong>Sistemas Distribuídos</strong><span>IoT, MQTT e XRCE-DDS em redes institucionais.</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═════════════════════ B · Escuro tecnológico ═════════════════════ -->
+<div class="variant vB" id="var-B" hidden>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="wrap">
+    <aside>
+      <div>
+        <div class="avatar"><div class="crop"><img src="../../src/assets/foto.jpg" alt="Foto de Tuigg Barcelos."></div></div>
+        <h1>Tuigg Barcelos</h1>
+        <p class="role">Pesquisa em segurança de agentes de IA</p>
+        <span class="status"><i></i>Mestrado em Eng. de Software · UNIPAMPA</span>
+        <p class="blurb">Investigo como agentes baseados em LLM podem ser induzidos a vazar dados, e como impedir isso. Antes da pesquisa, foram anos construindo software, do Exército à Residência em TIC.</p>
+        <nav aria-label="Seções">
+          <ol>
+            <li><a href="#b-sobre" class="active">Sobre</a></li>
+            <li><a href="#b-pesquisa">Pesquisa</a></li>
+            <li><a href="#b-publicacoes">Publicações</a></li>
+            <li><a href="#b-projetos">Projetos</a></li>
+            <li><a href="#b-trajetoria">Trajetória</a></li>
+          </ol>
+        </nav>
+      </div>
+      <div class="foot">
+        <div class="social">
+          <a href="http://lattes.cnpq.br/9627192907130585" target="_blank" rel="noopener" aria-label="Currículo Lattes" title="Currículo Lattes"><svg class="icon"><use href="#i-lattes"/></svg></a>
+          <a href="https://orcid.org/0009-0000-3520-102X" target="_blank" rel="noopener" aria-label="ORCID" title="ORCID"><svg class="icon"><use href="#i-orcid"/></svg></a>
+          <a href="https://scholar.google.com/citations?user=BvIlfYMAAAAJ" target="_blank" rel="noopener" aria-label="Google Scholar" title="Google Scholar"><svg class="icon"><use href="#i-scholar"/></svg></a>
+          <a href="https://github.com/Tucelos" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub"><svg class="icon"><use href="#i-github"/></svg></a>
+          <a href="https://www.linkedin.com/in/tuiggbarcelos/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg class="icon"><use href="#i-linkedin"/></svg></a>
+          <a href="mailto:tuiggbarcelos.aluno@unipampa.edu.br" aria-label="E-mail" title="E-mail"><svg class="icon"><use href="#i-mail"/></svg></a>
+        </div>
+        <div class="tools">
+          <a class="langbtn" href="#" lang="en" title="Protótipo: troca de idioma não implementada">EN</a>
+          <button class="iconbtn theme-toggle" aria-label="Alternar tema"><svg class="icon"><use href="#i-theme"/></svg></button>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <section id="b-sobre">
+        <h2 class="sr-only">Sobre</h2>
+        <p>Me formei em Análise e Desenvolvimento de Sistemas no <strong>IFFar</strong>, fiz especialização em Ciência de Dados na UNIASSELVI e hoje faço o <strong>Mestrado Profissional em Engenharia de Software</strong> na UNIPAMPA. Pesquiso no <strong>AI Horizon Labs</strong> e no Grupo de Pesquisa em Defesa Cibernética, com bolsa CNPq (SET-G) na Messo IA.</p>
+        <p>Antes da pesquisa, passei cinco anos cuidando de TI e comunicação no <strong>Exército Brasileiro</strong>, fiz estágio em blockchain na Compass UOL e a Residência em TIC no Instituto BRISA.</p>
+      </section>
+
+      <section id="b-pesquisa">
+        <h2 class="sec-label">Linhas de pesquisa</h2>
+        <div class="lines"><span>Cibersegurança Inteligente</span><span>Inteligência Artificial Aplicada</span><span>Sistemas Distribuídos</span></div>
+      </section>
+
+      <section id="b-publicacoes">
+        <h2 class="sec-label">Publicações em destaque</h2>
+        <div class="list">
+          <a class="card" href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener">
+            <span class="when">2026</span>
+            <div>
+              <h3>Data Exfiltration in Model Context Protocol (MCP)-Based Intelligent Agents: An Evaluation of Prompt Injection Vectors</h3>
+              <div class="authors"><b>Barcelos, T. R.</b>; Quincozes, S. E.; Souza, P. S. S.</div>
+              <div class="venue"><span class="badge">SBSeg 2026</span>XXVI Simpósio Brasileiro de Cibersegurança</div>
+            </div>
+          </a>
+          <a class="card" href="https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/44471" target="_blank" rel="noopener">
+            <span class="when">2026</span>
+            <div>
+              <h3>Toward Agentic Intrusion Detection in the Internet of Things: Rule Generation and Live Validation for XRCE-DDS Attacks</h3>
+              <div class="authors">Ciocca, M.; Ferreira, E. C.; <b>Barcelos, T. R.</b>; Quincozes, S. E.; Kreutz, D.; Souza, P. S. S.</div>
+              <div class="venue"><span class="badge">SBSeg 2026</span>Salão de Ferramentas</div>
+            </div>
+          </a>
+        </div>
+        <a class="more" href="#">Ver as 8 publicações <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></a>
+      </section>
+
+      <section id="b-projetos">
+        <h2 class="sec-label">Projetos</h2>
+        <div class="list">
+          <a class="card" href="https://github.com/Tucelos/Teste_vulnerabilidade_MCP" target="_blank" rel="noopener">
+            <span class="when">2026</span>
+            <div><h3>Teste de vulnerabilidade em agentes MCP</h3><p class="desc">Prova de conceito que mede se agentes LLM conectados por MCP vazam dados sensíveis sob injeção de prompt. Código do artigo do SBSeg.</p><div class="pills"><span>Python</span><span>Agno</span><span>FastMCP</span></div></div>
+          </a>
+          <a class="card" href="https://github.com/cwrricio/llm_rules_tk/tree/sbseg-2026" target="_blank" rel="noopener">
+            <span class="when">2026</span>
+            <div><h3>Rules Farmer</h3><p class="desc">Agentes que transformam uma intenção em regras do Snort 3 e as validam contra ataques reais até convergir. Coautoria.</p><div class="pills"><span>Python</span><span>Snort 3</span><span>Docker</span></div></div>
+          </a>
+          <a class="card" href="https://github.com/Tucelos/Chemicall" target="_blank" rel="noopener">
+            <span class="when">2025</span>
+            <div><h3>Chemicall</h3><p class="desc">Gestão de reagentes químicos para laboratórios de Institutos Federais: validade, produtos controlados e relatórios. Meu TCC.</p><div class="pills"><span>PHP</span><span>MariaDB</span><span>Bootstrap</span></div></div>
+          </a>
+          <a class="card" href="https://github.com/Tucelos/Projeto_Aqui" target="_blank" rel="noopener">
+            <span class="when">2026</span>
+            <div><h3>Projeto Aqui</h3><p class="desc">Chamada por biometria: leitores em Raspberry Pi publicam via MQTT para uma API FastAPI. Projeto em equipe da Residência em TIC.</p><div class="pills"><span>FastAPI</span><span>MQTT</span><span>React</span><span>Docker</span></div></div>
+          </a>
+        </div>
+      </section>
+
+      <section id="b-trajetoria">
+        <h2 class="sec-label">Trajetória</h2>
+        <div class="list">
+          <div class="card"><span class="when">2026 — hoje</span><div><h3>Mestrado Profissional em Engenharia de Software · UNIPAMPA</h3><p class="desc">Pesquisa no AI Horizon Labs. Bolsa CNPq SET-G na Messo IA.</p></div></div>
+          <div class="card"><span class="when">2025 — 2026</span><div><h3>Residência em TIC · Instituto BRISA</h3><p class="desc">Desenvolvimento full-stack, APIs e protótipos de IoT em projetos reais.</p></div></div>
+          <div class="card"><span class="when">2019 — 2024</span><div><h3>TI e Comunicação · Exército Brasileiro</h3><p class="desc">Sites, redes sociais e infraestrutura de TI da organização.</p></div></div>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<!-- ═════════════════════ C · Bento ═════════════════════ -->
+<div class="variant vC" id="var-C" hidden>
+  <div class="glow" aria-hidden="true"></div>
+  <header class="top">
+    <a class="brand" href="#"><i>TB</i>Tuigg Barcelos</a>
+    <nav class="pillnav" aria-label="Seções">
+      <a class="on" href="#">Início</a><a href="#">Pesquisa</a><a href="#">Publicações</a><a href="#">Projetos</a><a href="#">Trajetória</a>
+    </nav>
+    <div class="tools">
+      <a class="langbtn" href="#" lang="en" title="Protótipo: troca de idioma não implementada">EN</a>
+      <button class="iconbtn theme-toggle" aria-label="Alternar tema"><svg class="icon"><use href="#i-theme"/></svg></button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <section class="tile t-hero">
+      <div class="crop"><img src="../../src/assets/foto-original.jpg" alt="Foto de Tuigg Barcelos sorrindo enquanto solda um circuito numa bancada."></div>
+      <div>
+        <h1>Tuigg Barcelos</h1>
+        <p class="hl">Pesquisa em segurança de agentes de IA</p>
+        <p>Investigo como agentes baseados em LLM podem ser induzidos a vazar dados, e como impedir isso. Mestrado Profissional em Engenharia de Software na UNIPAMPA.</p>
+        <div class="chips"><span>Cibersegurança Inteligente</span><span>IA Aplicada</span><span>Sistemas Distribuídos</span></div>
+      </div>
+    </section>
+
+    <section class="tile t-now">
+      <p class="k"><i></i>Agora</p>
+      <p>Estudo ataques e defesas em agentes de IA que usam o Model Context Protocol (MCP).</p>
+      <ul class="now-list">
+        <li><b>Mestrado Profissional em Engenharia de Software</b><span>UNIPAMPA · orientação de Silvio E. Quincozes e coorientação de Paulo S. S. de Souza</span></li>
+        <li><b>Bolsa CNPq SET-G na Messo IA</b><span>Startup aprovada no Programa Centelha</span></li>
+        <li><a href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener"><b>Novo artigo no SBSeg 2026 ↗</b><span>Data Exfiltration in MCP-Based Intelligent Agents</span></a></li>
+      </ul>
+    </section>
+
+    <section class="tile t-links" aria-label="Perfis">
+      <a href="http://lattes.cnpq.br/9627192907130585" target="_blank" rel="noopener"><svg class="icon"><use href="#i-lattes"/></svg>Lattes</a>
+      <a href="https://orcid.org/0009-0000-3520-102X" target="_blank" rel="noopener"><svg class="icon"><use href="#i-orcid"/></svg>ORCID</a>
+      <a href="https://scholar.google.com/citations?user=BvIlfYMAAAAJ" target="_blank" rel="noopener"><svg class="icon"><use href="#i-scholar"/></svg>Scholar</a>
+      <a href="https://github.com/Tucelos" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+      <a href="https://www.linkedin.com/in/tuiggbarcelos/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-linkedin"/></svg>LinkedIn</a>
+      <a href="mailto:tuiggbarcelos.aluno@unipampa.edu.br"><svg class="icon"><use href="#i-mail"/></svg>E-mail</a>
+    </section>
+
+    <section class="tile t-lines">
+      <h2 class="k">Linhas de pesquisa e áreas de interesse</h2>
+      <div class="chips"><span>Cibersegurança Inteligente</span><span>Inteligência Artificial Aplicada</span><span>Sistemas Distribuídos</span><span class="soft">Engenharia de software aplicada</span><span class="soft">Ciência de dados</span><span class="soft">Inovação tecnológica</span><span class="soft">Tecnologia e educação</span></div>
+    </section>
+
+    <section class="tile t-groups">
+      <h2 class="k">Grupos de pesquisa</h2>
+      <div class="groups">
+        <a href="https://ai-horizon-labs.github.io/" target="_blank" rel="noopener"><b>AI Horizon Labs<em>principal</em></b><span>IA e Engenharia de Software · UNIPAMPA</span></a>
+        <a href="https://www.instagram.com/defesacibernetica.dc/" target="_blank" rel="noopener"><b>Grupo de Pesquisa em Defesa Cibernética</b><span>@defesacibernetica.dc</span></a>
+      </div>
+    </section>
+
+    <section class="tile t-trail">
+      <h2 class="k">Trajetória</h2>
+      <div class="trail">
+        <div><b>2019–2024</b>TI e Comunicação · Exército Brasileiro</div>
+        <div><b>2022–2025</b>Tecnologia em ADS · IFFar</div>
+        <div><b>2023</b>Estágio em blockchain · Compass UOL</div>
+        <div><b>2025–2026</b>Residência em TIC · Instituto BRISA</div>
+        <div><b>2026</b>Especialização em Ciência de Dados · UNIASSELVI</div>
+        <div><b>2026–hoje</b>Mestrado em Engenharia de Software · UNIPAMPA</div>
+      </div>
+    </section>
+
+    <section class="tile t-pubs">
+      <h2 class="k">Publicações em destaque</h2>
+      <a class="pub" href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener"><b>Data Exfiltration in MCP-Based Intelligent Agents: An Evaluation of Prompt Injection Vectors</b><span><em>SBSeg 2026</em>Barcelos, Quincozes, Souza</span></a>
+      <a class="pub" href="https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/44471" target="_blank" rel="noopener"><b>Toward Agentic Intrusion Detection in the IoT: Rule Generation and Live Validation for XRCE-DDS Attacks</b><span><em>SBSeg 2026</em>Ciocca, Ferreira, Barcelos et al.</span></a>
+      <a class="all" href="#">Ver as 8 publicações →</a>
+    </section>
+
+    <section class="tile t-projects">
+      <h2 class="k">Projetos</h2>
+      <div class="projs">
+        <a class="proj" href="https://github.com/Tucelos/Teste_vulnerabilidade_MCP" target="_blank" rel="noopener"><b>Teste de vulnerabilidade MCP <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></b><span>Python · Agno · FastMCP</span></a>
+        <a class="proj" href="https://github.com/cwrricio/llm_rules_tk/tree/sbseg-2026" target="_blank" rel="noopener"><b>Rules Farmer <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></b><span>Python · Snort 3 · Docker</span></a>
+        <a class="proj" href="https://github.com/Tucelos/Chemicall" target="_blank" rel="noopener"><b>Chemicall <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></b><span>PHP · MariaDB · Bootstrap</span></a>
+        <a class="proj" href="https://github.com/Tucelos/Projeto_Aqui" target="_blank" rel="noopener"><b>Projeto Aqui <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></b><span>FastAPI · MQTT · React</span></a>
+      </div>
+    </section>
+
+    <section class="tile t-contact">
+      <div>
+        <h2 class="k">Contato</h2>
+        <a class="mail" href="mailto:tuiggbarcelos.aluno@unipampa.edu.br">tuiggbarcelos.aluno@unipampa.edu.br <svg class="icon"><use href="#i-arrow"/></svg></a>
+        <a class="mail2" href="mailto:tuiggrb9@gmail.com">ou tuiggrb9@gmail.com</a>
+      </div>
+      <small><svg class="icon" style="width:15px;height:15px"><use href="#i-pin"/></svg>Alegrete, RS</small>
+    </section>
+  </main>
+</div>
+
+<!-- ═════════════════════ E · Sugestão: topo do A + cartões e escuro do B ═════════════════════ -->
+<div class="variant vA vE" id="var-E" hidden>
+  <div class="glow" aria-hidden="true"></div>
+  <header class="nav">
+    <a class="brand" href="#">Tuigg Barcelos</a>
+    <ul>
+      <li><a href="#e-pesquisa">Pesquisa</a></li>
+      <li><a href="#e-publicacoes">Publicações</a></li>
+      <li><a href="#e-projetos">Projetos</a></li>
+      <li><a href="#">Trajetória</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+    <div class="tools">
+      <a class="langbtn" href="#" lang="en" title="Protótipo: troca de idioma não implementada">EN</a>
+      <button class="iconbtn theme-toggle" aria-label="Alternar tema"><svg class="icon"><use href="#i-theme"/></svg></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div>
+      <a class="news reveal" href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener"><b>Novo</b> Artigo no SBSeg 2026 sobre exfiltração de dados em agentes MCP <svg class="icon" style="width:14px;height:14px"><use href="#i-arrow"/></svg></a>
+      <h1 class="reveal d1">Tuigg Barcelos pesquisa a <em>segurança de agentes de&nbsp;IA</em>.</h1>
+      <p class="lede reveal d2">Investigo como agentes baseados em LLM que usam o <strong>Model Context Protocol (MCP)</strong> podem ser induzidos a vazar dados, e como impedir isso. Faço o Mestrado Profissional em Engenharia de Software na <strong>UNIPAMPA</strong> e pesquiso no <strong>AI Horizon Labs</strong>.</p>
+      <div class="links reveal d3">
+        <a class="primary" href="http://lattes.cnpq.br/9627192907130585" target="_blank" rel="noopener"><svg class="icon"><use href="#i-lattes"/></svg>Currículo Lattes</a>
+        <a href="https://orcid.org/0009-0000-3520-102X" target="_blank" rel="noopener"><svg class="icon"><use href="#i-orcid"/></svg>ORCID</a>
+        <a href="https://scholar.google.com/citations?user=BvIlfYMAAAAJ" target="_blank" rel="noopener"><svg class="icon"><use href="#i-scholar"/></svg>Google Scholar</a>
+        <a href="https://github.com/Tucelos" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/tuiggbarcelos/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-linkedin"/></svg>LinkedIn</a>
+        <a href="mailto:tuiggbarcelos.aluno@unipampa.edu.br"><svg class="icon"><use href="#i-mail"/></svg>E-mail</a>
+      </div>
+      <div class="meta reveal d4">
+        <span><svg class="icon" style="width:15px;height:15px"><use href="#i-pin"/></svg>Alegrete, RS</span>
+        <span>Bolsa CNPq SET-G na Messo IA</span>
+      </div>
+    </div>
+    <figure class="photo reveal d2" style="margin:0">
+      <div class="crop"><img src="../../src/assets/foto-original.jpg" alt="Foto de Tuigg Barcelos sorrindo enquanto solda um circuito numa bancada, com impressoras 3D ao fundo."></div>
+    </figure>
+  </section>
+
+  <section class="peek" id="e-pesquisa">
+    <p class="label">Pesquisa</p>
+    <div>
+      <h2>Três linhas, um foco atual.</h2>
+      <p>No mestrado, estudo ataques e estratégias de mitigação em arquiteturas de agentes de IA que usam MCP, com orientação de Silvio Ereno Quincozes e coorientação de Paulo Silas Severo de Souza. Faço parte do AI Horizon Labs (UNIPAMPA) e do Grupo de Pesquisa em Defesa Cibernética.</p>
+      <div class="lines">
+        <div><strong>Cibersegurança Inteligente</strong><span>Detecção de intrusão e resposta automatizada com apoio de IA.</span></div>
+        <div><strong>Inteligência Artificial Aplicada</strong><span>Agentes baseados em LLM e os riscos de colocá-los em produção.</span></div>
+        <div><strong>Sistemas Distribuídos</strong><span>IoT, MQTT e XRCE-DDS em redes institucionais.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="peek" id="e-publicacoes">
+    <p class="label">Publicações</p>
+    <div>
+      <h2>Em destaque.</h2>
+      <div class="list">
+        <a class="card" href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener">
+          <span class="when">2026</span>
+          <div>
+            <h3>Data Exfiltration in Model Context Protocol (MCP)-Based Intelligent Agents: An Evaluation of Prompt Injection Vectors</h3>
+            <div class="authors"><b>Barcelos, T. R.</b>; Quincozes, S. E.; Souza, P. S. S.</div>
+            <div class="venue"><span class="badge">SBSeg 2026</span>XXVI Simpósio Brasileiro de Cibersegurança</div>
+          </div>
+        </a>
+        <a class="card" href="https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/44471" target="_blank" rel="noopener">
+          <span class="when">2026</span>
+          <div>
+            <h3>Toward Agentic Intrusion Detection in the Internet of Things: Rule Generation and Live Validation for XRCE-DDS Attacks</h3>
+            <div class="authors">Ciocca, M.; Ferreira, E. C.; <b>Barcelos, T. R.</b>; Quincozes, S. E.; Kreutz, D.; Souza, P. S. S.</div>
+            <div class="venue"><span class="badge">SBSeg 2026</span>Salão de Ferramentas</div>
+          </div>
+        </a>
+      </div>
+      <a class="more" href="#">Ver as 8 publicações <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></a>
+    </div>
+  </section>
+
+  <section class="peek" id="e-projetos">
+    <p class="label">Projetos</p>
+    <div>
+      <h2>O que construí.</h2>
+      <div class="list">
+        <a class="card" href="https://github.com/Tucelos/Teste_vulnerabilidade_MCP" target="_blank" rel="noopener">
+          <span class="when">2026</span>
+          <div><h3>Teste de vulnerabilidade em agentes MCP</h3><p class="desc">Prova de conceito que mede se agentes LLM conectados por MCP vazam dados sensíveis sob injeção de prompt. Código do artigo do SBSeg 2026.</p><div class="pills"><span>Python</span><span>Agno</span><span>FastMCP</span></div></div>
+        </a>
+        <a class="card" href="https://github.com/cwrricio/llm_rules_tk/tree/sbseg-2026" target="_blank" rel="noopener">
+          <span class="when">2026</span>
+          <div><h3>Rules Farmer</h3><p class="desc">Agentes que transformam uma intenção em regras do Snort 3 e as validam contra ataques reais até convergir.</p><p class="desc"><b>Meu papel:</b> coautoria; executei os primeiros experimentos em lote e contribuí com os primeiros resultados e regras validadas.</p><div class="pills"><span>Python</span><span>Snort 3</span><span>Docker</span></div></div>
+        </a>
+        <a class="card" href="https://github.com/Tucelos/Chemicall" target="_blank" rel="noopener">
+          <span class="when">2025</span>
+          <div><h3>Chemicall</h3><p class="desc">Gestão de reagentes químicos para laboratórios de Institutos Federais: validade, produtos controlados e relatórios. Meu TCC no IFFar.</p><div class="pills"><span>PHP</span><span>MariaDB</span><span>Bootstrap</span></div></div>
+        </a>
+        <a class="card" href="https://github.com/Tucelos/Projeto_Aqui" target="_blank" rel="noopener">
+          <span class="when">2026</span>
+          <div><h3>Projeto Aqui</h3><p class="desc">Chamada por biometria: leitores em Raspberry Pi publicam via MQTT para uma API FastAPI. Projeto em equipe da Residência em TIC.</p><p class="desc"><b>Meu papel:</b> integrei o backend ao MQTT, fiz a autenticação JWT e as APIs por perfil e coloquei tudo em contêineres com Docker Compose.</p><div class="pills"><span>FastAPI</span><span>MQTT</span><span>React</span><span>Docker</span></div></div>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ═════════════════════ F · Cinemático ═════════════════════ -->
+<div class="variant vF" id="var-F" hidden>
+  <header class="f-nav">
+    <a class="f-brand" href="#">Tuigg Barcelos</a>
+    <nav aria-label="Seções">
+      <a href="#f-agora">Agora</a><a href="#f-pesquisa">Pesquisa</a><a href="#f-publicacoes">Publicações</a><a href="#f-projetos">Projetos</a><a href="#f-trajetoria">Trajetória</a><a href="#f-contato">Contato</a>
+    </nav>
+    <div class="tools">
+      <a class="langbtn" href="#" lang="en" title="Protótipo: troca de idioma não implementada">EN</a>
+      <button class="iconbtn theme-toggle" aria-label="Alternar tema"><svg class="icon"><use href="#i-theme"/></svg></button>
+    </div>
+  </header>
+
+  <section class="f-hero">
+    <img class="f-bg" src="../../src/assets/foto-original.jpg" alt="Tuigg Barcelos sorrindo enquanto solda um circuito numa bancada, com impressoras 3D ao fundo.">
+    <div class="f-shade" aria-hidden="true"></div>
+    <div class="f-copy">
+      <p class="f-kicker">Pesquisa em segurança de agentes de IA</p>
+      <h1>Tuigg<br>Barcelos</h1>
+      <p class="f-lede">Investigo como agentes baseados em LLM podem ser induzidos a vazar dados, e como impedir isso.</p>
+      <p class="f-aff">Mestrado Profissional em Engenharia de Software · UNIPAMPA · AI Horizon Labs</p>
+      <div class="f-links">
+        <a class="primary" href="http://lattes.cnpq.br/9627192907130585" target="_blank" rel="noopener"><svg class="icon"><use href="#i-lattes"/></svg>Currículo Lattes</a>
+        <a href="https://orcid.org/0009-0000-3520-102X" target="_blank" rel="noopener"><svg class="icon"><use href="#i-orcid"/></svg>ORCID</a>
+        <a href="https://scholar.google.com/citations?user=BvIlfYMAAAAJ" target="_blank" rel="noopener"><svg class="icon"><use href="#i-scholar"/></svg>Scholar</a>
+        <a href="https://github.com/Tucelos" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+        <a href="https://www.linkedin.com/in/tuiggbarcelos/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-linkedin"/></svg>LinkedIn</a>
+        <a href="mailto:tuiggbarcelos.aluno@unipampa.edu.br"><svg class="icon"><use href="#i-mail"/></svg>E-mail</a>
+      </div>
+    </div>
+    <a class="f-scroll" href="#f-agora">Role ↓</a>
+  </section>
+
+  <section class="f-band" id="f-agora">
+    <div class="f-col">
+      <p class="f-k">Pesquisa atual</p>
+      <p class="f-big">Ataques e defesas em agentes de IA que usam o Model Context Protocol (MCP).</p>
+    </div>
+    <div class="f-col">
+      <p class="f-k">Grupos de pesquisa</p>
+      <p class="f-mid"><a href="https://ai-horizon-labs.github.io/" target="_blank" rel="noopener">AI Horizon Labs ↗</a></p>
+      <p class="f-small">Laboratório de IA e Engenharia de Software da UNIPAMPA, meu grupo principal. Também participo do <a href="https://www.instagram.com/defesacibernetica.dc/" target="_blank" rel="noopener">Grupo de Pesquisa em Defesa Cibernética</a>.</p>
+    </div>
+    <div class="f-col">
+      <p class="f-k">Bolsa</p>
+      <p class="f-mid">CNPq SET-G na Messo IA</p>
+      <p class="f-small">Startup aprovada no Programa Centelha.</p>
+    </div>
+  </section>
+
+  <section class="f-sec" id="f-pesquisa">
+    <p class="f-k">Linhas de pesquisa</p>
+    <ol class="f-lines">
+      <li><span>01</span>Cibersegurança Inteligente</li>
+      <li><span>02</span>Inteligência Artificial Aplicada</li>
+      <li><span>03</span>Sistemas Distribuídos</li>
+    </ol>
+    <p class="f-k f-gap">Linhas de pesquisa e áreas de interesse</p>
+    <div class="f-chips"><span class="line">Cibersegurança Inteligente</span><span class="line">Inteligência Artificial Aplicada</span><span class="line">Sistemas Distribuídos</span><span>Engenharia de software aplicada</span><span>Ciência de dados</span><span>Inovação tecnológica</span><span>Tecnologia e educação</span></div>
+  </section>
+
+  <section class="f-sec" id="f-publicacoes">
+    <p class="f-k">Publicações em destaque</p>
+    <div class="f-pubs">
+      <a href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener">
+        <span class="y">2026</span>
+        <div><b>Data Exfiltration in Model Context Protocol (MCP)-Based Intelligent Agents: An Evaluation of Prompt Injection Vectors</b><div class="au"><strong>Barcelos, T. R.</strong>; Quincozes, S. E.; Souza, P. S. S.</div><div class="ve">SBSeg 2026 · XXVI Simpósio Brasileiro de Cibersegurança</div></div>
+        <svg class="icon ar"><use href="#i-arrow"/></svg>
+      </a>
+      <a href="https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/44471" target="_blank" rel="noopener">
+        <span class="y">2026</span>
+        <div><b>Toward Agentic Intrusion Detection in the Internet of Things: Rule Generation and Live Validation for XRCE-DDS Attacks</b><div class="au">Ciocca, M.; Ferreira, E. C.; <strong>Barcelos, T. R.</strong>; Quincozes, S. E.; Kreutz, D.; Souza, P. S. S.</div><div class="ve">SBSeg 2026 · Salão de Ferramentas</div></div>
+        <svg class="icon ar"><use href="#i-arrow"/></svg>
+      </a>
+    </div>
+    <a class="f-more" href="#">Ver as 8 publicações →</a>
+  </section>
+
+  <section class="f-sec" id="f-projetos">
+    <p class="f-k">Projetos</p>
+    <div class="f-projs">
+      <a class="f-proj" href="https://github.com/Tucelos/Teste_vulnerabilidade_MCP" target="_blank" rel="noopener"><div class="band" style="--g: linear-gradient(135deg, #0b1026, #4338ca 55%, #818cf8)"><span>Segurança de LLM</span></div><div class="body"><h3>Teste de vulnerabilidade em agentes MCP</h3><p>Prova de conceito que mede se agentes LLM conectados por MCP vazam dados sensíveis sob injeção de prompt. Código do artigo do SBSeg 2026.</p><div class="pills"><span>Python</span><span>Agno</span><span>FastMCP</span></div></div></a>
+      <a class="f-proj" href="https://github.com/cwrricio/llm_rules_tk/tree/sbseg-2026" target="_blank" rel="noopener"><div class="band" style="--g: linear-gradient(135deg, #1e1035, #7c3aed 55%, #c4b5fd)"><span>IDS · IoT</span></div><div class="body"><h3>Rules Farmer</h3><p>Agentes que transformam uma intenção em regras do Snort 3 e as validam contra ataques reais até convergir.</p><p><b>Meu papel:</b> coautoria; executei os primeiros experimentos em lote e contribuí com os primeiros resultados e regras validadas.</p><div class="pills"><span>Python</span><span>Snort 3</span><span>Docker</span></div></div></a>
+      <a class="f-proj" href="https://github.com/Tucelos/Chemicall" target="_blank" rel="noopener"><div class="band" style="--g: linear-gradient(135deg, #2a0909, #b91c1c 55%, #fb7185)"><span>Sistema web · TCC</span></div><div class="body"><h3>Chemicall</h3><p>Gestão de reagentes químicos para laboratórios de Institutos Federais: validade, produtos controlados e relatórios. Meu TCC no IFFar.</p><div class="pills"><span>PHP</span><span>MariaDB</span><span>Bootstrap</span></div></div></a>
+      <a class="f-proj" href="https://github.com/Tucelos/Projeto_Aqui" target="_blank" rel="noopener"><div class="band" style="--g: linear-gradient(135deg, #061a33, #1d4ed8 55%, #60a5fa)"><span>IoT · Biometria</span></div><div class="body"><h3>Projeto Aqui</h3><p>Chamada por biometria: leitores em Raspberry Pi publicam via MQTT para uma API FastAPI. Projeto em equipe da Residência em TIC.</p><p><b>Meu papel:</b> integrei o backend ao MQTT, fiz a autenticação JWT e as APIs por perfil e coloquei tudo em contêineres com Docker Compose.</p><div class="pills"><span>FastAPI</span><span>MQTT</span><span>React</span><span>Docker</span></div></div></a>
+    </div>
+  </section>
+
+  <section class="f-sec" id="f-trajetoria">
+    <p class="f-k">Trajetória</p>
+    <ol class="f-trail">
+      <li><span class="yr">2026 — hoje</span><b>Mestrado Profissional em Engenharia de Software</b><em>UNIPAMPA</em></li>
+      <li><span class="yr">2026 — hoje</span><b>Bolsa CNPq SET-G</b><em>Messo IA</em></li>
+      <li><span class="yr">2026</span><b>Especialização em Ciência de Dados</b><em>UNIASSELVI</em></li>
+      <li><span class="yr">2025 — 2026</span><b>Residência em TIC</b><em>Instituto BRISA</em></li>
+      <li><span class="yr">2022 — 2025</span><b>Tecnologia em Análise e Desenvolvimento de Sistemas</b><em>IFFar</em></li>
+      <li><span class="yr">2023</span><b>Estágio em desenvolvimento blockchain</b><em>Compass UOL</em></li>
+      <li><span class="yr">2019 — 2024</span><b>TI e Comunicação</b><em>Exército Brasileiro</em></li>
+    </ol>
+  </section>
+
+  <section class="f-cta" id="f-contato">
+    <p class="f-k">Contato</p>
+    <a class="f-mail" href="mailto:tuiggbarcelos.aluno@unipampa.edu.br">tuiggbarcelos.aluno@unipampa.edu.br</a>
+    <p class="f-small">ou <a href="mailto:tuiggrb9@gmail.com">tuiggrb9@gmail.com</a> · Alegrete, RS</p>
+  </section>
+</div>
+
+<!-- ═════════════════════ G · Artigo técnico ═════════════════════ -->
+<div class="variant vG" id="var-G" hidden>
+  <div class="g-sheet">
+    <header class="g-head">
+      <span class="g-mono">tucelos.github.io</span>
+      <nav class="g-mono" aria-label="Seções"><a href="#g-1">§1 Pesquisa</a><a href="#g-2">§2 Publicações</a><a href="#g-3">§3 Projetos</a><a href="#g-4">§4 Trajetória</a><a href="#g-5">§5 Contato</a></nav>
+      <div class="tools">
+        <a class="langbtn" href="#" lang="en" title="Protótipo: troca de idioma não implementada">EN</a>
+        <button class="iconbtn theme-toggle" aria-label="Alternar tema"><svg class="icon"><use href="#i-theme"/></svg></button>
+      </div>
+    </header>
+
+    <section class="g-title">
+      <div>
+        <p class="g-mono g-meta">Página de apresentação · Alegrete, RS · 2026</p>
+        <h1>Tuigg Barcelos</h1>
+        <p class="g-sub">Pesquisa em segurança de agentes de IA</p>
+        <p class="g-aff"><sup>1</sup>Mestrado Profissional em Engenharia de Software, UNIPAMPA &nbsp;·&nbsp; <sup>2</sup>AI Horizon Labs &nbsp;·&nbsp; <sup>3</sup>Bolsa CNPq SET-G na Messo IA</p>
+        <div class="g-abstract">
+          <b>Resumo.</b> Investigo como agentes baseados em LLM que usam o Model Context Protocol (MCP) podem ser induzidos a vazar dados, e como impedir isso. Antes da pesquisa, foram anos construindo software, do Exército à Residência em TIC.
+          <p class="g-kw"><b>Palavras-chave:</b> cibersegurança inteligente; inteligência artificial aplicada; sistemas distribuídos; MCP; injeção de prompt.</p>
+        </div>
+        <div class="g-links">
+          <a href="http://lattes.cnpq.br/9627192907130585" target="_blank" rel="noopener">Lattes</a>
+          <a href="https://orcid.org/0009-0000-3520-102X" target="_blank" rel="noopener">ORCID</a>
+          <a href="https://scholar.google.com/citations?user=BvIlfYMAAAAJ" target="_blank" rel="noopener">Scholar</a>
+          <a href="https://github.com/Tucelos" target="_blank" rel="noopener">GitHub</a>
+          <a href="https://www.linkedin.com/in/tuiggbarcelos/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="mailto:tuiggbarcelos.aluno@unipampa.edu.br">E-mail</a>
+        </div>
+      </div>
+      <figure class="g-fig">
+        <div class="g-frame"><img src="../../src/assets/foto-original.jpg" alt="Tuigg Barcelos sorrindo enquanto solda um circuito numa bancada, com impressoras 3D ao fundo."><i class="tl"></i><i class="tr"></i><i class="bl"></i><i class="br"></i></div>
+        <figcaption><b>Fig. 1.</b> No laboratório, montando um protótipo de IoT.</figcaption>
+      </figure>
+    </section>
+
+    <section class="g-sec" id="g-1">
+      <h2><span>§1</span> Pesquisa</h2>
+      <div class="g-grid">
+        <div><p class="g-label">Pesquisa atual</p><p>Ataques e estratégias de mitigação em arquiteturas de agentes de IA que usam MCP. Orientação de Silvio Ereno Quincozes; coorientação de Paulo Silas Severo de Souza.</p></div>
+        <div><p class="g-label">Linhas e áreas de interesse</p><div class="g-tags"><span class="line">Cibersegurança Inteligente</span><span class="line">Inteligência Artificial Aplicada</span><span class="line">Sistemas Distribuídos</span><span>Engenharia de software aplicada</span><span>Ciência de dados</span><span>Inovação tecnológica</span><span>Tecnologia e educação</span></div></div>
+        <div><p class="g-label">Grupos de pesquisa</p><p><a href="https://ai-horizon-labs.github.io/" target="_blank" rel="noopener"><b>AI Horizon Labs</b></a> (principal), laboratório de IA e Engenharia de Software da UNIPAMPA.</p><p style="margin-top:10px"><a href="https://www.instagram.com/defesacibernetica.dc/" target="_blank" rel="noopener"><b>Grupo de Pesquisa em Defesa Cibernética</b></a>.</p></div>
+      </div>
+    </section>
+
+    <section class="g-sec" id="g-2">
+      <h2><span>§2</span> Publicações selecionadas</h2>
+      <ol class="g-refs">
+        <li><div><b>BARCELOS, T. R.</b>; QUINCOZES, S. E.; SOUZA, P. S. S. <a href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener">Data Exfiltration in Model Context Protocol (MCP)-Based Intelligent Agents: An Evaluation of Prompt Injection Vectors</a>. In: <em>XXVI Simpósio Brasileiro de Cibersegurança (SBSeg)</em>, 2026. p. 440–455. <a class="lk" href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener">[SOL]</a><a class="lk" href="https://github.com/Tucelos/Teste_vulnerabilidade_MCP" target="_blank" rel="noopener">[código]</a></div></li>
+        <li><div>CIOCCA, M.; FERREIRA, E. C.; <b>BARCELOS, T. R.</b>; QUINCOZES, S. E.; KREUTZ, D.; SOUZA, P. S. S. <a href="https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/44471" target="_blank" rel="noopener">Toward Agentic Intrusion Detection in the Internet of Things: Rule Generation and Live Validation for XRCE-DDS Attacks</a>. In: <em>Salão de Ferramentas, XXVI SBSeg</em>, 2026. p. 242–250. <a class="lk" href="https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/44471" target="_blank" rel="noopener">[SOL]</a><a class="lk" href="https://github.com/cwrricio/llm_rules_tk/tree/sbseg-2026" target="_blank" rel="noopener">[código]</a></div></li>
+      </ol>
+      <p class="g-mono" style="margin:18px 0 0"><a href="#" style="color:var(--accent);text-decoration:none">→ Lista completa (8 publicações)</a></p>
+    </section>
+
+    <section class="g-sec" id="g-3">
+      <h2><span>§3</span> Projetos</h2>
+      <table>
+        <thead><tr><th>Projeto</th><th>O que é</th><th>Tecnologias</th><th></th></tr></thead>
+        <tbody>
+          <tr><td>Teste de vulnerabilidade MCP</td><td>Prova de conceito que mede se agentes LLM conectados por MCP vazam dados sob injeção de prompt.</td><td>Python, Agno, FastMCP</td><td><a href="https://github.com/Tucelos/Teste_vulnerabilidade_MCP" target="_blank" rel="noopener">[repo]</a></td></tr>
+          <tr><td>Rules Farmer</td><td>Agentes que geram e validam regras do Snort 3 contra ataques reais.<small>Meu papel: coautoria; primeiros experimentos em lote, resultados e regras validadas.</small></td><td>Python, Snort 3, Docker</td><td><a href="https://github.com/cwrricio/llm_rules_tk/tree/sbseg-2026" target="_blank" rel="noopener">[repo]</a></td></tr>
+          <tr><td>Chemicall</td><td>Gestão de reagentes químicos para laboratórios de Institutos Federais. Meu TCC no IFFar.</td><td>PHP, MariaDB, Bootstrap</td><td><a href="https://github.com/Tucelos/Chemicall" target="_blank" rel="noopener">[repo]</a></td></tr>
+          <tr><td>Projeto Aqui</td><td>Chamada por biometria com Raspberry Pi, MQTT e FastAPI.<small>Meu papel: integração com MQTT, autenticação JWT, APIs por perfil e Docker Compose.</small></td><td>FastAPI, MQTT, React</td><td><a href="https://github.com/Tucelos/Projeto_Aqui" target="_blank" rel="noopener">[repo]</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="g-sec" id="g-4">
+      <h2><span>§4</span> Trajetória</h2>
+      <table>
+        <thead><tr><th>Período</th><th>Formação ou experiência</th><th>Onde</th></tr></thead>
+        <tbody>
+          <tr><td>2026 — hoje</td><td>Mestrado Profissional em Engenharia de Software</td><td>UNIPAMPA</td></tr>
+          <tr><td>2026 — hoje</td><td>Bolsa CNPq SET-G<small>Startup aprovada no Programa Centelha</small></td><td>Messo IA</td></tr>
+          <tr><td>2026</td><td>Especialização em Ciência de Dados</td><td>UNIASSELVI</td></tr>
+          <tr><td>2025 — 2026</td><td>Residência em TIC</td><td>Instituto BRISA</td></tr>
+          <tr><td>2022 — 2025</td><td>Tecnologia em Análise e Desenvolvimento de Sistemas</td><td>IFFar</td></tr>
+          <tr><td>2023</td><td>Estágio em desenvolvimento blockchain</td><td>Compass UOL</td></tr>
+          <tr><td>2019 — 2024</td><td>TI e Comunicação</td><td>Exército Brasileiro</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="g-sec" id="g-5">
+      <h2><span>§5</span> Contato</h2>
+      <a class="g-mail" href="mailto:tuiggbarcelos.aluno@unipampa.edu.br">tuiggbarcelos.aluno@unipampa.edu.br</a>
+      <p class="g-mono" style="margin:10px 0 0">ou <a href="mailto:tuiggrb9@gmail.com" style="color:var(--accent);text-decoration:none">tuiggrb9@gmail.com</a> · Alegrete, RS</p>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════════════════ H · Topo do F + cartões do D ═════════════════════ -->
+<div class="variant vH" id="var-H" hidden>
+  <div class="vF h-top">
+    <header class="f-nav">
+      <a class="f-brand" href="#">Tuigg Barcelos</a>
+      <nav aria-label="Seções">
+        <a href="#h-agora">Agora</a><a href="#h-pesquisa">Pesquisa</a><a href="#h-publicacoes">Publicações</a><a href="#h-projetos">Projetos</a><a href="#h-trajetoria">Trajetória</a><a href="#h-contato">Contato</a>
+      </nav>
+      <div class="tools">
+        <a class="langbtn" href="#" lang="en" title="Protótipo: troca de idioma não implementada">EN</a>
+        <button class="iconbtn theme-toggle" aria-label="Alternar tema"><svg class="icon"><use href="#i-theme"/></svg></button>
+      </div>
+    </header>
+
+    <section class="f-hero">
+      <img class="f-bg" src="../../src/assets/foto-original.jpg" alt="Tuigg Barcelos sorrindo enquanto solda um circuito numa bancada, com impressoras 3D ao fundo.">
+      <div class="f-shade" aria-hidden="true"></div>
+      <div class="f-copy">
+        <p class="f-kicker">Pesquisa em segurança de agentes de IA</p>
+        <h1>Tuigg<br>Barcelos</h1>
+        <p class="f-lede">Investigo como agentes baseados em LLM podem ser induzidos a vazar dados, e como impedir isso.</p>
+        <p class="f-aff">Mestrado Profissional em Engenharia de Software · UNIPAMPA · AI Horizon Labs</p>
+        <div class="f-links">
+          <a class="primary" href="http://lattes.cnpq.br/9627192907130585" target="_blank" rel="noopener"><svg class="icon"><use href="#i-lattes"/></svg>Currículo Lattes</a>
+          <a href="https://orcid.org/0009-0000-3520-102X" target="_blank" rel="noopener"><svg class="icon"><use href="#i-orcid"/></svg>ORCID</a>
+          <a href="https://scholar.google.com/citations?user=BvIlfYMAAAAJ" target="_blank" rel="noopener"><svg class="icon"><use href="#i-scholar"/></svg>Scholar</a>
+          <a href="https://github.com/Tucelos" target="_blank" rel="noopener"><svg class="icon"><use href="#i-github"/></svg>GitHub</a>
+          <a href="https://www.linkedin.com/in/tuiggbarcelos/" target="_blank" rel="noopener"><svg class="icon"><use href="#i-linkedin"/></svg>LinkedIn</a>
+          <a href="mailto:tuiggbarcelos.aluno@unipampa.edu.br"><svg class="icon"><use href="#i-mail"/></svg>E-mail</a>
+        </div>
+      </div>
+      <a class="f-scroll" href="#h-agora">Role ↓</a>
+    </section>
+  </div>
+
+  <div class="vC h-body">
+    <div class="glow" aria-hidden="true"></div>
+    <main class="grid">
+      <section class="tile t-now" id="h-agora">
+        <p class="k"><i></i>Agora</p>
+        <p>Estudo ataques e defesas em agentes de IA que usam o Model Context Protocol (MCP).</p>
+        <ul class="now-list">
+          <li><b>Mestrado Profissional em Engenharia de Software</b><span>UNIPAMPA · orientação de Silvio E. Quincozes e coorientação de Paulo S. S. de Souza</span></li>
+          <li><b>Bolsa CNPq SET-G na Messo IA</b><span>Startup aprovada no Programa Centelha</span></li>
+          <li><a href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener"><b>Novo artigo no SBSeg 2026 ↗</b><span>Data Exfiltration in MCP-Based Intelligent Agents</span></a></li>
+        </ul>
+      </section>
+
+      <section class="tile t-lines" id="h-pesquisa">
+        <h2 class="k">Linhas de pesquisa e áreas de interesse</h2>
+        <div class="chips"><span>Cibersegurança Inteligente</span><span>Inteligência Artificial Aplicada</span><span>Sistemas Distribuídos</span><span class="soft">Engenharia de software aplicada</span><span class="soft">Ciência de dados</span><span class="soft">Inovação tecnológica</span><span class="soft">Tecnologia e educação</span></div>
+      </section>
+
+      <section class="tile t-about">
+        <h2 class="k">Sobre</h2>
+        <p>Me formei em Análise e Desenvolvimento de Sistemas no <strong>IFFar</strong>, fiz especialização em Ciência de Dados na UNIASSELVI e hoje faço o <strong>Mestrado Profissional em Engenharia de Software</strong> na UNIPAMPA, onde pesquiso no AI Horizon Labs.</p>
+        <p>Antes da pesquisa, passei cinco anos cuidando de TI e comunicação no <strong>Exército Brasileiro</strong>, fiz estágio em blockchain na Compass UOL e a Residência em TIC no Instituto BRISA.</p>
+      </section>
+
+      <section class="tile t-groups">
+        <h2 class="k">Grupos de pesquisa</h2>
+        <div class="groups">
+          <a href="https://ai-horizon-labs.github.io/" target="_blank" rel="noopener"><b>AI Horizon Labs<em>principal</em></b><span>IA e Engenharia de Software · UNIPAMPA</span></a>
+          <a href="https://www.instagram.com/defesacibernetica.dc/" target="_blank" rel="noopener"><b>Grupo de Pesquisa em Defesa Cibernética</b><span>@defesacibernetica.dc</span></a>
+        </div>
+      </section>
+
+      <section class="tile t-pubs" id="h-publicacoes">
+        <h2 class="k">Publicações em destaque</h2>
+        <a class="pub" href="https://sol.sbc.org.br/index.php/sbseg/article/view/44305" target="_blank" rel="noopener"><b>Data Exfiltration in MCP-Based Intelligent Agents: An Evaluation of Prompt Injection Vectors</b><span><em>SBSeg 2026</em>Barcelos, Quincozes, Souza</span></a>
+        <a class="pub" href="https://sol.sbc.org.br/index.php/sbseg_estendido/article/view/44471" target="_blank" rel="noopener"><b>Toward Agentic Intrusion Detection in the IoT: Rule Generation and Live Validation for XRCE-DDS Attacks</b><span><em>SBSeg 2026</em>Ciocca, Ferreira, Barcelos et al.</span></a>
+        <a class="all" href="#">Ver as 8 publicações →</a>
+      </section>
+
+      <section class="tile t-projects" id="h-projetos">
+        <h2 class="k">Projetos</h2>
+        <div class="projs">
+          <a class="proj" href="https://github.com/Tucelos/Teste_vulnerabilidade_MCP" target="_blank" rel="noopener"><b>Teste de vulnerabilidade MCP <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></b><span>Python · Agno · FastMCP</span></a>
+          <a class="proj" href="https://github.com/cwrricio/llm_rules_tk/tree/sbseg-2026" target="_blank" rel="noopener"><b>Rules Farmer <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></b><span>Python · Snort 3 · Docker</span></a>
+          <a class="proj" href="https://github.com/Tucelos/Chemicall" target="_blank" rel="noopener"><b>Chemicall <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></b><span>PHP · MariaDB · Bootstrap</span></a>
+          <a class="proj" href="https://github.com/Tucelos/Projeto_Aqui" target="_blank" rel="noopener"><b>Projeto Aqui <svg class="icon" style="width:15px;height:15px"><use href="#i-arrow"/></svg></b><span>FastAPI · MQTT · React</span></a>
+        </div>
+      </section>
+
+      <section class="tile t-trail" id="h-trajetoria">
+        <h2 class="k">Trajetória</h2>
+        <div class="trail">
+          <div><b>2019–2024</b>TI e Comunicação · Exército Brasileiro</div>
+          <div><b>2022–2025</b>Tecnologia em ADS · IFFar</div>
+          <div><b>2023</b>Estágio em blockchain · Compass UOL</div>
+          <div><b>2025–2026</b>Residência em TIC · Instituto BRISA</div>
+          <div><b>2026</b>Especialização em Ciência de Dados · UNIASSELVI</div>
+          <div><b>2026–hoje</b>Mestrado em Engenharia de Software · UNIPAMPA</div>
+        </div>
+      </section>
+
+      <section class="tile t-contact" id="h-contato">
+        <div>
+          <h2 class="k">Contato</h2>
+          <a class="mail" href="mailto:tuiggbarcelos.aluno@unipampa.edu.br">tuiggbarcelos.aluno@unipampa.edu.br <svg class="icon"><use href="#i-arrow"/></svg></a>
+          <a class="mail2" href="mailto:tuiggrb9@gmail.com">ou tuiggrb9@gmail.com</a>
+        </div>
+        <small><svg class="icon" style="width:15px;height:15px"><use href="#i-pin"/></svg>Alegrete, RS</small>
+      </section>
+    </main>
+  </div>
+</div>
+
+<div class="proto-bar" role="toolbar" aria-label="Alternar variantes do protótipo">
+  <button type="button" data-dir="-1" aria-label="Variante anterior">←</button>
+  <span class="proto-label" aria-live="polite"></span>
+  <button type="button" data-dir="1" aria-label="Próxima variante">→</button>
+</div>
+
+<script>
+  const CONFIG = [
+    { key: 'H', el: 'var-H', name: 'F + D juntos', theme: 'dark' },
+    { key: 'D', el: 'var-C', name: 'Bento escuro (ajustado)', theme: 'dark' },
+    { key: 'F', el: 'var-F', name: 'Cinemático', theme: 'dark' },
+    { key: 'G', el: 'var-G', name: 'Artigo técnico', theme: 'dark' },
+    // arquivadas: fora do ciclo da barra, ainda acessíveis por ?variant=
+    { key: 'A', el: 'var-A', name: 'Editorial claro (arquivada)', theme: 'light', archived: true },
+    { key: 'B', el: 'var-B', name: 'Escuro tecnológico (arquivada)', theme: 'dark', archived: true },
+    { key: 'C', el: 'var-C', name: 'Bento claro (arquivada)', theme: 'light', archived: true },
+    { key: 'E', el: 'var-E', name: 'Editorial + cartões (arquivada)', theme: 'light', archived: true },
+  ];
+  const keys = CONFIG.filter(c => !c.archived).map(c => c.key);
+  const label = document.querySelector('.proto-label');
+  const current = () => (new URL(location).searchParams.get('variant') || 'H').toUpperCase();
+
+  function show(key) {
+    const c = CONFIG.find(x => x.key === key) || CONFIG[0];
+    document.querySelectorAll('.variant').forEach(v => { v.hidden = v.id !== c.el; });
+    document.documentElement.dataset.theme = c.theme;
+    label.textContent = `${c.key} · ${c.name}`;
+    const url = new URL(location);
+    url.searchParams.set('variant', c.key);
+    history.replaceState(null, '', url);
+    window.scrollTo(0, 0);
+  }
+  function cycle(dir) {
+    const i = keys.indexOf(current());
+    show(keys[(i + dir + keys.length) % keys.length]);
+  }
+
+  document.querySelectorAll('.proto-bar button').forEach(b => b.addEventListener('click', () => cycle(Number(b.dataset.dir))));
+  addEventListener('keydown', e => {
+    if (e.target.closest('input, textarea, [contenteditable]')) return;
+    if (e.key === 'ArrowLeft') cycle(-1);
+    if (e.key === 'ArrowRight') cycle(1);
+  });
+  document.querySelectorAll('.theme-toggle').forEach(b => b.addEventListener('click', () => {
+    const h = document.documentElement;
+    h.dataset.theme = h.dataset.theme === 'dark' ? 'light' : 'dark';
+  }));
+
+  // brilho que segue o cursor (B, e D/E no escuro) + destaque da seção atual no menu do B
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    addEventListener('pointermove', e => {
+      document.documentElement.style.setProperty('--mx', e.clientX + 'px');
+      document.documentElement.style.setProperty('--my', e.clientY + 'px');
+    });
+  }
+  const navLinks = document.querySelectorAll('.vB nav a');
+  const spy = new IntersectionObserver(entries => {
+    entries.forEach(en => {
+      if (en.isIntersecting) navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id));
+    });
+  }, { rootMargin: '-35% 0px -60% 0px' });
+  document.querySelectorAll('.vB main section').forEach(s => spy.observe(s));
+
+  show(current());
+</script>
+</body>
+</html>
