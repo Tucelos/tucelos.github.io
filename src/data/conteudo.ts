@@ -380,11 +380,6 @@ export const formacao: ItemDaTrajetoria[] = [
     },
   },
   {
-    periodo: { pt: '2026 — em andamento', en: '2026 — in progress' },
-    titulo: { pt: 'Graduação em Ciência da Computação', en: 'Undergraduate degree in Computer Science' },
-    lugar: 'UNIPAMPA',
-  },
-  {
     periodo: '2026',
     titulo: { pt: 'Especialização em Ciência de Dados', en: 'Specialization in Data Science' },
     lugar: 'UNIASSELVI',
