@@ -1,0 +1,55 @@
+---
+import Icone from './Icone.astro';
+import { maisProjetos, projetos } from '../data/conteudo';
+import { textosDaInterface, traduzir, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+
+// Cores das faixas, na ordem dos projetos (repetem se houver mais projetos que cores).
+const degrades = [
+  'linear-gradient(135deg, #0b1026, #4338ca 55%, #818cf8)',
+  'linear-gradient(135deg, #1e1035, #7c3aed 55%, #c4b5fd)',
+  'linear-gradient(135deg, #2a0909, #b91c1c 55%, #fb7185)',
+  'linear-gradient(135deg, #061a33, #1d4ed8 55%, #60a5fa)',
+];
+---
+
+<section class="secao" id={ui('id.projetos')} aria-labelledby="titulo-projetos">
+  <h2 class="rotulo" id="titulo-projetos">{ui('proj.titulo')}</h2>
+  <ul class="projetos">
+    {
+      projetos.map((p, i) => (
+        <li>
+          <a class="projeto" href={p.url} target="_blank" rel="noopener">
+            <div class="projeto-faixa" style={`--degrade: ${degrades[i % degrades.length]}`}>
+              <span>{traduzir(p.rotulo, idioma)}</span>
+            </div>
+            <div class="projeto-corpo">
+              <h3>{traduzir(p.nome, idioma)}</h3>
+              <p>{traduzir(p.descricao, idioma)}</p>
+              {p.meuPapel && (
+                <p>
+                  <strong>{ui('proj.meuPapel')}</strong> {traduzir(p.meuPapel, idioma)}
+                </p>
+              )}
+              <ul class="etiquetas">
+                {p.tecnologias.map((tecnologia) => (
+                  <li>{tecnologia}</li>
+                ))}
+              </ul>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+  <a class="link-seta" href={maisProjetos} target="_blank" rel="noopener">
+    {ui('proj.mais')}
+    <Icone nome="seta" tamanho={16} />
+  </a>
+</section>

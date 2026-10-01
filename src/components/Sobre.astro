@@ -1,0 +1,16 @@
+---
+import { sobre } from '../data/conteudo';
+import { textosDaInterface, traduzir, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+---
+
+<section class="secao sobre" aria-labelledby="titulo-sobre">
+  <h2 class="rotulo" id="titulo-sobre">{ui('sobre.titulo')}</h2>
+  {sobre.map((paragrafo) => <p>{traduzir(paragrafo, idioma)}</p>)}
+</section>

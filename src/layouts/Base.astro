@@ -1,0 +1,100 @@
+---
+import '@fontsource-variable/geist';
+import '@fontsource-variable/geist-mono';
+import '../styles/global.css';
+import { getImage } from 'astro:assets';
+import foto from '../assets/foto-original.jpg';
+import { agora, perfil, site } from '../data/conteudo';
+import { idiomas, outroIdioma, textosDaInterface, traduzir, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+  titulo?: string;
+  descricao?: string;
+  /** Para páginas que não devem aparecer nos buscadores (ex.: 404). */
+  semIndexar?: boolean;
+}
+
+const { idioma, semIndexar = false } = Astro.props;
+const ui = textosDaInterface(idioma);
+const titulo = Astro.props.titulo ?? `${perfil.nome} · ${traduzir(perfil.titulo, idioma)}`;
+const descricao = Astro.props.descricao ?? ui('meta.descricao');
+
+const origem = Astro.site ?? new URL('https://tucelos.github.io');
+const canonico = new URL(Astro.url.pathname, origem);
+const versaoPt = new URL(idiomas['pt-br'].caminho, origem);
+const versaoEn = new URL(idiomas.en.caminho, origem);
+
+// Imagem de pré-visualização (WhatsApp, LinkedIn…): recorte 1200×630 da foto, mantendo a cabeça.
+const imagemSocial = await getImage({ src: foto, width: 1200, height: 630, fit: 'cover', position: 'top', format: 'jpg', quality: 82 });
+const urlImagemSocial = new URL(imagemSocial.src, origem);
+
+// Dados estruturados (schema.org) para buscadores.
+const grupoPrincipal = agora.grupos[0];
+const pessoa = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: perfil.nome,
+  alternateName: perfil.nomeCompleto,
+  url: versaoPt.href,
+  image: urlImagemSocial.href,
+  description: traduzir(perfil.resumo, idioma),
+  affiliation: [
+    { '@type': 'CollegeOrUniversity', name: 'Universidade Federal do Pampa (UNIPAMPA)' },
+    ...(grupoPrincipal ? [{ '@type': 'Organization', name: grupoPrincipal.nome, url: grupoPrincipal.url }] : []),
+  ],
+  alumniOf: { '@type': 'CollegeOrUniversity', name: 'Instituto Federal Farroupilha (IFFar)' },
+  knowsAbout: ['AI agent security', 'Model Context Protocol', 'Prompt injection', 'Intrusion detection'],
+  sameAs: perfil.perfis.filter((p) => p.url.startsWith('http')).map((p) => p.url),
+};
+---
+
+<!doctype html>
+<html lang={idiomas[idioma].lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{titulo}</title>
+    <meta name="description" content={descricao} />
+    {semIndexar && <meta name="robots" content="noindex" />}
+    <link rel="canonical" href={canonico} />
+    <link rel="alternate" hreflang="pt-BR" href={versaoPt} />
+    <link rel="alternate" hreflang="en" href={versaoEn} />
+    <link rel="alternate" hreflang="x-default" href={versaoPt} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="theme-color" content="#06060f" />
+    <meta name="generator" content={Astro.generator} />
+
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content={perfil.nome} />
+    <meta property="og:title" content={titulo} />
+    <meta property="og:description" content={descricao} />
+    <meta property="og:url" content={canonico} />
+    <meta property="og:image" content={urlImagemSocial} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={traduzir(perfil.fotoAlt, idioma)} />
+    <meta property="og:locale" content={idiomas[idioma].og} />
+    <meta property="og:locale:alternate" content={idiomas[outroIdioma(idioma)].og} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Aplica o tema salvo antes de desenhar a página, para não piscar. -->
+    <script is:inline>
+      try {
+        const tema = localStorage.getItem('tema');
+        if (tema === 'light' || tema === 'dark') document.documentElement.dataset.theme = tema;
+      } catch {}
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(pessoa)} />
+    {
+      site.goatcounter && (
+        <script is:inline async data-goatcounter={`https://${site.goatcounter}.goatcounter.com/count`} src="//gc.zgo.at/count.js" />
+      )
+    }
+  </head>
+  <body>
+    <a class="pular" href="#conteudo">{ui('a11y.pular')}</a>
+    <slot />
+  </body>
+</html>

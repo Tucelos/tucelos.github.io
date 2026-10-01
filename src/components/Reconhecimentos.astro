@@ -1,0 +1,25 @@
+---
+import { reconhecimentos } from '../data/conteudo';
+import { textosDaInterface, traduzir, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+---
+
+<section class="secao" aria-labelledby="titulo-reconhecimentos">
+  <h2 class="rotulo" id="titulo-reconhecimentos">{ui('rec.titulo')}</h2>
+  <ul class="reconhecimentos">
+    {
+      reconhecimentos.map((item) => (
+        <li>
+          <span class="ano">{item.ano}</span>
+          <span>{traduzir(item.texto, idioma)}</span>
+        </li>
+      ))
+    }
+  </ul>
+</section>

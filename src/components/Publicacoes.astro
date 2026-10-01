@@ -1,0 +1,97 @@
+---
+import Icone from './Icone.astro';
+import { perfil, publicacoes, type Publicacao } from '../data/conteudo';
+import { textosDaInterface, traduzir, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+
+const destaques = publicacoes.filter((p) => p.destaque);
+const grupos = [
+  { titulo: ui('pub.completos'), itens: publicacoes.filter((p) => p.tipo === 'completo') },
+  { titulo: ui('pub.resumos'), itens: publicacoes.filter((p) => p.tipo === 'resumo') },
+];
+
+/** Marca o idioma do título quando ele é diferente do idioma da página (ajuda leitores de tela). */
+function idiomaDoTitulo(p: Publicacao) {
+  const daPagina = idioma === 'en' ? 'en' : 'pt';
+  if (p.idiomaDoTitulo === daPagina) return undefined;
+  return p.idiomaDoTitulo === 'en' ? 'en' : 'pt-BR';
+}
+---
+
+<section class="secao" id={ui('id.publicacoes')} aria-labelledby="titulo-publicacoes">
+  <h2 class="rotulo" id="titulo-publicacoes">{ui('pub.destaque')}</h2>
+  <ul class="destaques">
+    {
+      destaques.map((p) => (
+        <li>
+          <a href={p.link} target="_blank" rel="noopener">
+            <span class="ano">{p.ano}</span>
+            <span>
+              <span class="titulo" lang={idiomaDoTitulo(p)}>
+                {p.titulo}
+              </span>
+              <span class="autores">
+                {p.autores.map((autor, i) => (
+                  <>
+                    {i > 0 && '; '}
+                    {autor === perfil.nomeEmCitacoes ? <strong>{autor}</strong> : autor}
+                  </>
+                ))}
+              </span>
+              <span class="evento">
+                {p.sigla} · {traduzir(p.evento, idioma)}
+              </span>
+            </span>
+            <Icone nome="seta" class="seta" />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  <details class="todas">
+    <summary>{ui('pub.todas').replace('{n}', String(publicacoes.length))}</summary>
+    {
+      grupos.map((grupo) => (
+        <>
+          <h3>{grupo.titulo}</h3>
+          <ol class="referencias">
+            {grupo.itens.map((p) => (
+              <li>
+                {p.autores.map((autor, i) => (
+                  <>
+                    {i > 0 && '; '}
+                    {autor === perfil.nomeEmCitacoes ? <strong>{autor}</strong> : autor}
+                  </>
+                ))}
+                .{' '}
+                <span class="titulo" lang={idiomaDoTitulo(p)}>
+                  {p.titulo}
+                </span>
+                . {traduzir(p.evento, idioma)}, {p.ano}. {ui('pub.paginas')} {p.paginas}.
+                <span class="links">
+                  {p.link && (
+                    <a href={p.link} target="_blank" rel="noopener">
+                      [{p.linkEhDosAnais ? ui('pub.anais') : ui('pub.artigo')}]
+                    </a>
+                  )}
+                  {p.codigo && (
+                    <a href={p.codigo} target="_blank" rel="noopener">
+                      [{ui('pub.codigo')}]
+                    </a>
+                  )}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </>
+      ))
+    }
+  </details>
+</section>

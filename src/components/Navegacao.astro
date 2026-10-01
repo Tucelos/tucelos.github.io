@@ -1,0 +1,58 @@
+---
+import Icone from './Icone.astro';
+import { perfil } from '../data/conteudo';
+import { idiomas, outroIdioma, textosDaInterface, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+const outro = outroIdioma(idioma);
+
+const secoes = [
+  [ui('id.agora'), ui('nav.agora')],
+  [ui('id.pesquisa'), ui('nav.pesquisa')],
+  [ui('id.publicacoes'), ui('nav.publicacoes')],
+  [ui('id.projetos'), ui('nav.projetos')],
+  [ui('id.trajetoria'), ui('nav.trajetoria')],
+  [ui('id.contato'), ui('nav.contato')],
+];
+---
+
+<header class="nav">
+  <a class="nav-marca" href={idiomas[idioma].caminho}>{perfil.nome}</a>
+  <nav aria-label={ui('nav.rotulo')}>
+    <ul>
+      {secoes.map(([id, rotulo]) => <li><a href={`#${id}`}>{rotulo}</a></li>)}
+    </ul>
+  </nav>
+  <div class="nav-acoes">
+    <a
+      class="botao-idioma"
+      href={idiomas[outro].caminho}
+      hreflang={idiomas[outro].lang}
+      lang={idiomas[outro].lang}
+      aria-label={ui('idioma.trocar')}
+      title={ui('idioma.trocar')}>{ui('idioma.sigla')}</a
+    >
+    <button class="botao-tema" type="button" aria-label={ui('tema.alternar')} title={ui('tema.alternar')} data-alternar-tema>
+      <Icone nome="tema" />
+    </button>
+  </div>
+</header>
+
+<script>
+  // Alterna claro/escuro e lembra a escolha. Sem escolha salva, o site segue o sistema.
+  const botao = document.querySelector<HTMLButtonElement>('[data-alternar-tema]');
+  botao?.addEventListener('click', () => {
+    const raiz = document.documentElement;
+    const atual = raiz.dataset.theme ?? (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    const novo = atual === 'dark' ? 'light' : 'dark';
+    raiz.dataset.theme = novo;
+    try {
+      localStorage.setItem('tema', novo);
+    } catch {}
+  });
+</script>

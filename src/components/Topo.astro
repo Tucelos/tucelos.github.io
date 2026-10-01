@@ -1,0 +1,48 @@
+---
+import { Picture } from 'astro:assets';
+import Icone from './Icone.astro';
+import foto from '../assets/foto-original.jpg';
+import { perfil } from '../data/conteudo';
+import { textosDaInterface, traduzir, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+const [primeiroNome, ...sobrenomes] = perfil.nome.split(' ');
+---
+
+<section class="topo" aria-labelledby="nome">
+  <Picture
+    src={foto}
+    formats={['avif', 'webp']}
+    widths={[640, 960, 1280, 1600, foto.width]}
+    sizes="100vw"
+    alt={traduzir(perfil.fotoAlt, idioma)}
+    class="topo-foto"
+    loading="eager"
+    fetchpriority="high"
+  />
+  <div class="topo-sombra" aria-hidden="true"></div>
+  <div class="topo-texto">
+    <p class="topo-chamada">{traduzir(perfil.titulo, idioma)}</p>
+    <h1 id="nome">{primeiroNome}<br />{sobrenomes.join(' ')}</h1>
+    <p class="topo-resumo">{traduzir(perfil.resumo, idioma)}</p>
+    <p class="topo-afiliacao">{traduzir(perfil.afiliacao, idioma)}</p>
+    <ul class="topo-links" aria-label={ui('topo.perfis')}>
+      {
+        perfil.perfis.map((p) => (
+          <li>
+            <a href={p.url} {...(p.url.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>
+              <Icone nome={p.icone} />
+              {traduzir(p.rotulo, idioma)}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <a class="topo-rolar" href={`#${ui('id.agora')}`} aria-hidden="true" tabindex="-1">{ui('topo.rolar')} ↓</a>
+</section>

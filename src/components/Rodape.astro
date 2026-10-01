@@ -1,0 +1,20 @@
+---
+import { perfil, site } from '../data/conteudo';
+import { idiomas, textosDaInterface, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+
+// Meio-dia evita que o fuso horário mude o dia ao formatar a data.
+const atualizadoEm = new Date(`${site.atualizadoEm}T12:00:00`);
+const dataFormatada = new Intl.DateTimeFormat(idiomas[idioma].lang, { day: 'numeric', month: 'long', year: 'numeric' }).format(atualizadoEm);
+---
+
+<footer class="rodape">
+  <span>© {atualizadoEm.getFullYear()} {perfil.nome} · {ui('rodape.atualizado')} {dataFormatada}</span>
+  <a href="https://astro.build" target="_blank" rel="noopener">{ui('rodape.feito')}</a>
+</footer>

@@ -1,0 +1,24 @@
+---
+import { areasDeInteresse, linhasDePesquisa } from '../data/conteudo';
+import { textosDaInterface, traduzir, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+---
+
+<section class="secao" id={ui('id.pesquisa')} aria-labelledby="titulo-linhas">
+  <h2 class="rotulo" id="titulo-linhas">{ui('pesquisa.linhas')}</h2>
+  <ol class="linhas">
+    {linhasDePesquisa.map((linha) => <li>{traduzir(linha, idioma)}</li>)}
+  </ol>
+
+  <h3 class="rotulo rotulo-espacado">{ui('pesquisa.areas')}</h3>
+  <ul class="areas">
+    {linhasDePesquisa.map((linha) => <li class="linha-de-pesquisa">{traduzir(linha, idioma)}</li>)}
+    {areasDeInteresse.map((area) => <li>{traduzir(area, idioma)}</li>)}
+  </ul>
+</section>

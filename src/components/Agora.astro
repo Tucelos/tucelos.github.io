@@ -1,0 +1,42 @@
+---
+import { agora } from '../data/conteudo';
+import { textosDaInterface, traduzir, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+---
+
+<section class="agora" id={ui('id.agora')} aria-label={ui('agora.titulo')}>
+  <div class="agora-coluna">
+    <h2 class="rotulo">{ui('agora.pesquisaAtual')}</h2>
+    <p class="agora-destaque">{traduzir(agora.pesquisaAtual, idioma)}</p>
+    <p class="agora-nota">{traduzir(agora.orientacao, idioma)}</p>
+  </div>
+  <div class="agora-coluna">
+    <h2 class="rotulo">{ui('agora.grupos')}</h2>
+    <ul class="agora-grupos">
+      {
+        agora.grupos.map((grupo, i) => (
+          <li>
+            <p class="agora-nome">
+              <a href={grupo.url} target="_blank" rel="noopener">
+                {grupo.nome}
+              </a>
+              {i === 0 && <span class="selo">{ui('agora.principal')}</span>}
+            </p>
+            <p class="agora-nota">{traduzir(grupo.descricao, idioma)}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div class="agora-coluna">
+    <h2 class="rotulo">{ui('agora.bolsa')}</h2>
+    <p class="agora-nome">{traduzir(agora.bolsa.titulo, idioma)}</p>
+    <p class="agora-nota">{traduzir(agora.bolsa.descricao, idioma)}</p>
+  </div>
+</section>

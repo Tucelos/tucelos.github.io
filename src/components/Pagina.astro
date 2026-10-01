@@ -1,0 +1,38 @@
+---
+// A página inteira, montada para um idioma. Usada por src/pages/index.astro (pt) e src/pages/en/index.astro (en).
+import Base from '../layouts/Base.astro';
+import Navegacao from './Navegacao.astro';
+import Topo from './Topo.astro';
+import Agora from './Agora.astro';
+import Sobre from './Sobre.astro';
+import Pesquisa from './Pesquisa.astro';
+import Publicacoes from './Publicacoes.astro';
+import Projetos from './Projetos.astro';
+import Trajetoria from './Trajetoria.astro';
+import Reconhecimentos from './Reconhecimentos.astro';
+import Contato from './Contato.astro';
+import Rodape from './Rodape.astro';
+import type { Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+---
+
+<Base idioma={idioma}>
+  <Navegacao idioma={idioma} />
+  <main id="conteudo">
+    <Topo idioma={idioma} />
+    <Agora idioma={idioma} />
+    <Sobre idioma={idioma} />
+    <Pesquisa idioma={idioma} />
+    <Publicacoes idioma={idioma} />
+    <Projetos idioma={idioma} />
+    <Trajetoria idioma={idioma} />
+    <Reconhecimentos idioma={idioma} />
+    <Contato idioma={idioma} />
+  </main>
+  <Rodape idioma={idioma} />
+</Base>

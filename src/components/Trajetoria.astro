@@ -1,0 +1,41 @@
+---
+import { experiencia, formacao, type ItemDaTrajetoria } from '../data/conteudo';
+import { textosDaInterface, traduzir, type Idioma } from '../i18n/ui';
+
+interface Props {
+  idioma: Idioma;
+}
+
+const { idioma } = Astro.props;
+const ui = textosDaInterface(idioma);
+
+const colunas: { titulo: string; itens: ItemDaTrajetoria[] }[] = [
+  { titulo: ui('traj.formacao'), itens: formacao },
+  { titulo: ui('traj.experiencia'), itens: experiencia },
+];
+---
+
+<section class="secao" id={ui('id.trajetoria')} aria-labelledby="titulo-trajetoria">
+  <h2 class="rotulo" id="titulo-trajetoria">{ui('traj.titulo')}</h2>
+  <div class="trajetoria">
+    {
+      colunas.map((coluna) => (
+        <div>
+          <h3>{coluna.titulo}</h3>
+          <ol class="marcos">
+            {coluna.itens.map((item) => (
+              <li>
+                <span class="periodo">{traduzir(item.periodo, idioma)}</span>
+                <span>
+                  <span class="cargo">{traduzir(item.titulo, idioma)}</span>
+                  <span class="lugar">{traduzir(item.lugar, idioma)}</span>
+                  {item.detalhe && <span class="detalhe">{traduzir(item.detalhe, idioma)}</span>}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))
+    }
+  </div>
+</section>

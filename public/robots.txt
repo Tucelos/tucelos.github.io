@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tucelos.github.io/sitemap-index.xml
